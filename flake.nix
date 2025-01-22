@@ -24,6 +24,7 @@
             };
             system = "x86_64-linux";
             modules = [
+              ./disko-config.nix
               ./hardware-configuration.nix
               ./configuration.nix
             ];
