@@ -3,10 +3,16 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+    disko.url = "github:nix-community/disko";
+    disko.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
-    { self, nixpkgs }@inputs:
+    {
+      self,
+      nixpkgs,
+      disko,
+    }@inputs:
     let
       nodes = [
         "homelab-0"
@@ -24,6 +30,7 @@
             };
             system = "x86_64-linux";
             modules = [
+              disko.nixosModules.disko
               ./disko-config.nix
               ./hardware-configuration.nix
               ./configuration.nix
