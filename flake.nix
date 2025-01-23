@@ -15,6 +15,7 @@
     }@inputs:
     let
       nodes = [
+
         "homelab-0"
       ];
     in

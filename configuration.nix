@@ -46,10 +46,10 @@
   };
 
   # Fixes for longhorn
-  # systemd.tmpfiles.rules = [
-  #   "L+ /usr/local/bin - - - - /run/current-system/sw/bin/"
-  # ];
-  # virtualisation.docker.logDriver = "json-file";
+  systemd.tmpfiles.rules = [
+    "L+ /usr/local/bin - - - - /run/current-system/sw/bin/"
+  ];
+  virtualisation.docker.logDriver = "json-file";
 
   # Enable the X11 windowing system.
   # services.xserver.enable = true;
@@ -104,7 +104,7 @@
     packages = with pkgs; [
       tree
     ];
-    hashedPassword = "$6$dAngZBWDYDjeKxv3$e59QW7mHjsOOmoRz3sEM5paGbgv2zLFAuLZpLqY5tTO5e3yCOn7GvBt7G2zmMmBVESs3qGoir1nzFz73n98OR1";
+    hashedPassword = "$6$Zb9AeXU5sMgg0FEK$igOGuPG9UQab7nMT.Wu.9lB3MEv4YU8qFlAGrwuLvfpOkF2eiNP9DHDupLfaWkDaTiIuE7ejG77bY/WEzAdHx/";
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIitpc/m67908KzNDhwOGb7m4q18cCZsjJw3RsqYQo1k anthonyd@dev"
     ];
