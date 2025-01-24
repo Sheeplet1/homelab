@@ -1,0 +1,24 @@
+config:
+  bookmarks:
+    - Developer:
+        - Github:
+            - abbr: GH
+              href: https://github.com
+
+  kubernetes:
+    mode: cluster
+
+serviceAccount:
+  create: true
+  name: homepage
+
+enableRbac: true
+
+ingress:
+  main:
+    enabled: true
+    hosts:
+      - host: homepage.sheeplet.com
+        paths:
+          - path: /
+            pathType: Prefix

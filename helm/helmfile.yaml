@@ -13,6 +13,9 @@ repositories:
 
   - name: bitnami
     url: https://charts.bitnami.com/bitnami
+
+  - name: jameswynn
+    url: https://jameswynn.github.io/helm-charts
 ---
 releases:
   # Distributed storage
@@ -41,9 +44,17 @@ releases:
     values:
       - ./values/nginx-internal.values.yaml
 
+  # Automatic DNS for Pihole
   - name: externaldns-pihole
     namespace: pihole-system
     chart: bitnami/external-dns
     version: 8.7.2
     values:
       - ./values/externaldns.values.yaml
+
+  - name: homepage
+    namespace: homepage-system
+    chart: jameswynn/homepage
+    version: 2.0.1
+    values:
+      - ./values/homepage.values.yaml
