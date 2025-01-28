@@ -4,6 +4,29 @@ config:
         - Github:
             - abbr: GH
               href: https://github.com
+        - Gmail:
+            - abbr: GM
+              href: https://mail.google.com/mail/u/0/#inbox
+
+  services:
+
+  widgets:
+    - kubernetes:
+        cluster:
+          show: true
+          cpu: true
+          memory: true
+          showLabel: true
+          label: "cluster"
+        nodes:
+          show: true
+          cpu: true
+          memory: true
+          showLabel: true
+    # - pihole:
+    #     url: http://pihole.home/admin
+    # - moonraker:
+    #     url: http://192.168.50.119
 
   kubernetes:
     mode: cluster
@@ -17,6 +40,7 @@ enableRbac: true
 ingress:
   main:
     enabled: true
+    ingressClassName: "nginx-internal"
     hosts:
       - host: homepage.sheeplet.com
         paths:
