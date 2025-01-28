@@ -1,0 +1,9 @@
+ingress:
+  main:
+    enabled: true
+    className: nginx-internal
+    hosts:
+      - host: sonarr.sheeplet.com
+        paths:
+          - path: /
+            pathType: Prefix

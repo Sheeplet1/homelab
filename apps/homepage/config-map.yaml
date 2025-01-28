@@ -21,15 +21,33 @@ data:
             - abbr: GH
               href: https://github.com/
   services.yaml: |
-    - My First Group:
-        - My First Service:
-            href: http://localhost/
-            description: Homepage is awesome
+    - Homelab:
+        - Asus Router:
+            href: http://192.168.50.1
+            description: Asus
+            icon: asus-router.png
+        - PiHole:
+            href: pihole.home/admin
+            description: PiHole
+            icon: pi-hole.png
+        - Grafana:
+            href: grafana.sheeplet.com
+            description: Grafana
+            icon: grafana.png
+        - Mainsail:
+            href: http://192.168.50.119
+            description: 3D Printer
+            icon: mainsail.svg
 
-    - My Second Group:
-        - My Second Service:
-            href: http://localhost/
-            description: Homepage is the best
+    - Media:
+        - YouTube:
+            href: https://youtube.com
+            description: YouTube
+            icon: youtube.png
+        - Reddit:
+            href: https://reddit.com
+            description: Reddit
+            icon: reddit.png
 
     - My Third Group:
         - My Third Service:
