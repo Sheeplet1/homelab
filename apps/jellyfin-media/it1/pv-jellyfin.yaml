@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-jellyfin-data
+spec:
+  storageClassName: local-storage
+  volumeMode: Filesystem
+  persistentVolumeReclaimPolicy: Delete
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 500Gi
+  hostPath:
+    path: /home/anthonyd/jellyfin-media/media
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-jellyfin-config
+spec:
+  resources:
+    requests:
+    storage: 5Gi
+  volumeMode: Filesystem
+  storageClassName: local-storage
+  persistentVolumeReclaimPolicy: Delete
+  accessModes:
+    - ReadWriteOnce
+  local:
+    path: /home/anthonyd/jellyfin-media/jellyfin-config
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: In
+              values:
+                - homelab-0

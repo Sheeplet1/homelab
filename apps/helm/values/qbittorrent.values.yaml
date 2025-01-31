@@ -1,0 +1,30 @@
+ingress:
+  main:
+    enabled: true
+    hosts:
+      - host: qbittorrent.sheeplet.com
+        paths:
+          - path: /
+            pathType: Prefix
+
+persistence:
+  config:
+    enabled: true
+    retain: true
+    storageClass: longhorn
+    accessMode: ReadWriteOnce
+    size: 1Gi
+
+  downloads:
+    enabled: true
+    mountPath: /downloads
+    storageClass: longhorn
+    accessMode: ReadWriteOnce
+    size: 200Gi
+
+  media:
+    enabled: false
+    # mountPath: /media
+    # storageClass: ""
+    # accessMode: ReadWriteOnce
+    # size: 10Gi

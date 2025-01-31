@@ -3,7 +3,7 @@ ingress:
     enabled: true
     className: nginx-internal
     hosts:
-      - host: radarr.sheeplet.com
+      - host: prowlarr.sheeplet.com
         paths:
           - path: /
             pathType: Prefix

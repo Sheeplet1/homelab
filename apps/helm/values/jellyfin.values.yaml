@@ -1,0 +1,21 @@
+persistence:
+  config:
+    enabled: true
+    accessMode: ReadWriteOnce
+    size: 5Gi
+    storageClass: longhorn
+    retain: true
+  media:
+    enabled: true
+    accessMode: ReadWriteOnce
+    size: 1Ti
+    storageClass: longhorn
+
+ingress:
+  enabled: true
+  className: nginx-internal
+  hosts:
+    - host: jellyfin.sheeplet.com
+      paths:
+        - path: /
+          pathType: Prefix

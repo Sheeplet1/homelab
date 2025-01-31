@@ -1,0 +1,15 @@
+# Create a storage class from microk8s default host storage class
+# that allows data retention and volume expansion.
+# apiVersion: storage.k8s.io/v1
+# kind: StorageClass
+# metadata:
+#   name: media-storage
+# provisioner: microk8s.io/hostpath
+# allowVolumeExpansion: True
+
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: local-storage
+provisioner: microk8s.io/hostpath
+volumeBindingMode: WaitForFirstConsumer

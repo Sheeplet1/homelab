@@ -1,0 +1,16 @@
+persistence:
+  config:
+    enabled: true
+    size: 5Gi
+    storageClass: longhorn
+    accessModes: ReadWriteOnce
+
+ingress:
+  main:
+    enabled: true
+    ingressClassName: nginx-internal
+    hosts:
+      - host: jellyseerr.sheeplet.com
+        paths:
+          - path: /
+            pathType: Prefix

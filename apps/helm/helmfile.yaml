@@ -20,8 +20,11 @@ repositories:
   - name: jellyfin-helm
     url: https://jellyfin.github.io/jellyfin-helm
 
-  - name: pree
-    url: https://charts.pree.dev
+  - name: loeken
+    url: https://loeken.github.io/helm-charts
+
+  - name: gabe565
+    url: https://charts.gabe565.com
 ---
 releases:
   # Distributed storage
@@ -65,23 +68,51 @@ releases:
   #   values:
   #     - ./values/homepage.values.yaml
 
+  - name: qbittorrent
+    namespace: jellyfin-media
+    chart: gabe565/qbittorrent
+    version: 0.4.0
+    values:
+      - ./values/qbittorrent.values.yaml
+
   - name: jellyfin
-    namespace: jellyfin-system
+    namespace: jellyfin-media
     chart: jellyfin-helm/jellyfin
     version: 2.1.0
     values:
       - ./values/jellyfin.values.yaml
 
   - name: radarr
-    namespace: radarr-system
-    chart: pree/radarr
-    version: 1.14.0
+    namespace: jellyfin-media
+    chart: loeken/radarr
+    version: 5.17.2
     values:
       - ./values/radarr.values.yaml
 
-  - name: sonarr
-    namespace: sonarr-system
-    chart: pree/sonarr
-    version: 1.8.0
-    values:
-      - ./values/sonarr.values.yaml
+  # - name: sonarr
+  #   namespace: jellyfin-media
+  #   chart: loeken/sonarr
+  #   version: 4.0.12
+  #   values:
+  #     - ./values/sonarr.values.yaml
+
+  # - name: sonarr
+  #   namespace: sonarr-system
+  #   chart: pree/sonarr
+  #   version: 1.8.0
+  #   values:
+  #     - ./values/sonarr.values.yaml
+  #
+  # - name: prowlarr
+  #   namespace: prowlarr-system
+  #   chart: pree/prowlarr
+  #   version: 1.40.0
+  #   values:
+  #     - ./values/prowlarr.values.yaml
+
+  # - name: jellyseerr
+  #   namespace: jellyseerr-system
+  #   chart: loeken/jellyseerr
+  #   version: 2.3.0
+  #   values:
+  #     - ./values/jellyseerr.values.yaml

@@ -1,0 +1,33 @@
+service:
+  main:
+    ports:
+      http:
+        port: 7878
+
+persistence:
+  config:
+    enabled: true
+    size: 1Gi
+    retain: true
+  media:
+    enabled: true
+    storageClass: longhorn
+    accessMode: ReadWriteOnce
+    mountPath: /media
+    existingClaim: jellyfin-media
+  downloads:
+    enabled: true
+    storageClass: longhorn
+    accessMode: ReadWriteOnce
+    mountPath: /downloads
+    existingClaim: qbittorrent-downloads
+
+ingress:
+  main:
+    enabled: true
+    className: nginx-internal
+    hosts:
+      - host: radarr.sheeplet.com
+        paths:
+          - path: /
+            pathType: Prefix

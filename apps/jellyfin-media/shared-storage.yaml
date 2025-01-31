@@ -1,0 +1,47 @@
+# Create a persistent volume to mount a local media folder into the container
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: media-pvc
+  namespace: jellyfin-media
+spec:
+  accessModes:
+    - ReadWriteOnce
+  # storageClassName: media-storage
+  storageClassName: local-storage
+  # storageClassName: longhorn
+  # volumeName: media-pv
+  resources:
+    requests:
+      storage: 1.5Ti
+---
+# apiVersion: v1
+# kind: PersistentVolume
+# metadata:
+#   name: media-pv
+#   namespace: jellyfin-media
+# spec:
+#   accessModes:
+#     - ReadOnlyMany
+#   # storageClassName: media-storage
+#   storageClassName: local-storage
+#   # storageClassName: longhorn
+#   capacity:
+#     storage: 1.5Ti
+#   claimRef:
+#     kind: PersistentVolumeClaim
+#     name: media-pvc
+#     namespace: jellyfin-media
+#   # hostPath:
+#   #   path: /mnt/media
+#   #   type: Directory
+#   local:
+#     path: /home/anthonyd/media
+#   nodeAffinity:
+#     required:
+#       nodeSelectorTerms:
+#         - matchExpressions:
+#             - key: kubernetes.io/hostname
+#               operator: In
+#               values:
+#                 - homelab-0
