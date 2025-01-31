@@ -25,6 +25,9 @@ repositories:
 
   - name: gabe565
     url: https://charts.gabe565.com
+
+  - name: k8s-home-lab
+    url: https://k8s-home-lab.github.io/helm-charts/
 ---
 releases:
   # Distributed storage
@@ -96,12 +99,19 @@ releases:
     values:
       - ./values/sonarr.values.yaml
 
-  # - name: prowlarr
-  #   namespace: prowlarr-system
-  #   chart: pree/prowlarr
-  #   version: 1.40.0
-  #   values:
-  #     - ./values/prowlarr.values.yaml
+  - name: prowlarr
+    namespace: jellyfin-media
+    chart: loeken/prowlarr
+    version: 1.29.2
+    values:
+      - ./values/prowlarr.values.yaml
+
+  - name: flaresolverr
+    namespace: jellyfin-media
+    chart: k8s-home-lab/flaresolverr
+    version: 6.0.3
+    values:
+      - ./values/flaresolverr.values.yaml
 
   # - name: jellyseerr
   #   namespace: jellyseerr-system

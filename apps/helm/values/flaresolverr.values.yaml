@@ -2,14 +2,14 @@ service:
   main:
     ports:
       http:
-        port: 9696
+        port: 8191
 
 ingress:
   main:
     enabled: true
     className: nginx-internal
     hosts:
-      - host: prowlarr.sheeplet.com
+      - host: flaresolverr.sheeplet.com
         paths:
           - path: /
             pathType: Prefix
