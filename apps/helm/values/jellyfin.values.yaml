@@ -7,7 +7,7 @@ persistence:
     retain: true
   media:
     enabled: true
-    accessMode: ReadWriteOnce
+    accessMode: ReadWriteMany
     size: 1Ti
     storageClass: longhorn
 

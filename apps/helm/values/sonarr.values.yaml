@@ -4,6 +4,12 @@ service:
       http:
         port: 8989
 
+env:
+  - name: PUID
+    value: 1000
+  - name: PGID
+    value: 1000
+
 persistence:
   config:
     enabled: true
@@ -12,14 +18,14 @@ persistence:
   media:
     enabled: true
     storageClass: longhorn
-    accessMode: ReadWriteOnce
-    mountPath: /media
+    accessMode: ReadWriteMany
+    mountPath: /data/media
     existingClaim: jellyfin-media
   downloads:
     enabled: true
     storageClass: longhorn
-    accessMode: ReadWriteOnce
-    mountPath: /downloads
+    accessMode: ReadWriteMany
+    mountPath: /data/downloads
     existingClaim: qbittorrent-downloads
 
 ingress:

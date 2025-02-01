@@ -12,14 +12,14 @@ persistence:
   media:
     enabled: true
     storageClass: longhorn
-    accessMode: ReadWriteOnce
-    mountPath: /media
+    accessMode: ReadWriteMany
+    mountPath: /data/media
     existingClaim: jellyfin-media
   downloads:
     enabled: true
     storageClass: longhorn
-    accessMode: ReadWriteOnce
-    mountPath: /downloads
+    accessMode: ReadWriteMany
+    mountPath: /data/downloads
     existingClaim: qbittorrent-downloads
 
 ingress:
