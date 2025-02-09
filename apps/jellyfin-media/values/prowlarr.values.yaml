@@ -1,0 +1,21 @@
+persistence:
+  config:
+    enabled: true
+    size: 1Gi
+    retain: true
+
+service:
+  main:
+    ports:
+      http:
+        port: 9696
+
+ingress:
+  main:
+    enabled: true
+    className: nginx-internal
+    hosts:
+      - host: prowlarr.sheeplet.com
+        paths:
+          - path: /
+            pathType: Prefix

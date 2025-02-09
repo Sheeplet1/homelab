@@ -1,0 +1,113 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: homepage
+  namespace: default
+  labels:
+    app.kubernetes.io/name: homepage
+data:
+  kubernetes.yaml: |
+    mode: cluster
+  settings.yaml: ""
+  custom.css: ""
+  custom.js: ""
+  bookmarks.yaml: |
+    - Developer:
+        - Github:
+            - abbr: GH
+              href: https://github.com/
+  services.yaml: |
+    - Homelab:
+        - Asus Router:
+            href: http://192.168.50.1
+            icon: asus-router.png
+        - PiHole:
+            href: pihole.home/admin
+            icon: pi-hole.png
+        - Grafana:
+            href: grafana.sheeplet.com
+            icon: grafana.png
+        - Mainsail:
+            href: http://192.168.50.119
+            icon: mainsail.svg
+
+    - Media Server:
+        - Jellyfin:
+            href: http://jellyfin.sheeplet.com
+            icon: jellyfin.svg
+            widget:
+                type: jellyfin
+                url:
+                key: {{HOMEPAGE_VAR_JELLYFIN_APIKEY}}
+                enableNowPlaying: false
+                enableUser: false
+                showEpisodeNumber: false 
+                expandOneStreamToTwoRows: false 
+        - Jellyseerr:
+            href: http://jellyseerr.sheeplet.com
+            icon: jellyseerr.svg
+            widget:
+                type: jellyseerr
+                url:
+                key: {{HOMEPAGE_VAR_JELLYSEERR_APIKEY}}
+        - Sonarr: 
+            href: http://sonarr.sheeplet.com
+            icon: sonarr.svg
+            widget:
+                type: sonarr 
+                url:
+                key: {{HOMEPAGE_VAR_SONARR_APIKEY}}
+        - Radarr: 
+            href: http://radarr.sheeplet.com
+            icon: radarr.svg
+            widget:
+                type: radarr
+                url:
+                key: {{HOMEPAGE_VAR_RADARR_APIKEY}}
+        - Prowlarr: 
+            href: http://prowlarr.sheeplet.com
+            icon: prowlarr.svg
+            widget:
+                type: prowlarr
+                url:
+                key: {{HOMEPAGE_VAR_PROWLARR_APIKEY}}
+        - QBittorrent: 
+            href: qbittorrent.sheeplet.com
+            icon: qbittorrent.svg
+            widget:
+                type: qbittorrent
+                url: http://qbittorrent.sheeplet.com
+                username: {{HOMEPAGE_VAR_QBITTORRENT_USER}}
+                password: {{HOMEPAGE_VAR_QBITTORRENT_PW}}
+
+    - Online Media:
+        - YouTube:
+            href: https://youtube.com
+            icon: youtube.png
+        - Reddit:
+            href: https://reddit.com
+            icon: reddit.png
+
+  widgets.yaml: |
+    - kubernetes:
+        cluster:
+          show: true
+          cpu: true
+          memory: true
+          showLabel: true
+          label: "cluster"
+        nodes:
+          show: true
+          cpu: true
+          memory: true
+          showLabel: true
+    - resources:
+        backend: resources
+        expanded: true
+        cpu: true
+        memory: true
+        network: default
+    - search:
+        provider: duckduckgo
+        target: _blank
+  docker.yaml: ""

@@ -1,0 +1,68 @@
+repositories:
+  - name: jellyfin-helm
+    url: https://jellyfin.github.io/jellyfin-helm
+
+  - name: loeken
+    url: https://loeken.github.io/helm-charts
+
+  - name: gabe565
+    url: https://charts.gabe565.com
+
+  - name: k8s-home-lab
+    url: https://k8s-home-lab.github.io/helm-charts/
+---
+releases:
+  - name: qbittorrent
+    namespace: jellyfin-media
+    chart: gabe565/qbittorrent
+    version: 0.4.0
+    values:
+      - ./values/qbittorrent.values.yaml
+
+  # - name: jellyfin
+  #   namespace: jellyfin-media
+  #   chart: loeken/jellyfin
+  #   version: 10.10.5
+  #   values:
+  #     - ./values/jellyfin.values.yaml
+
+  - name: jellyfin
+    namespace: jellyfin-media
+    chart: jellyfin-helm/jellyfin
+    values:
+      - ./values/jellyfin.values.yaml
+
+  - name: radarr
+    namespace: jellyfin-media
+    chart: loeken/radarr
+    version: 5.17.2
+    values:
+      - ./values/radarr.values.yaml
+
+  - name: sonarr
+    namespace: jellyfin-media
+    chart: loeken/sonarr
+    version: 4.0.12
+    values:
+      - ./values/sonarr.values.yaml
+
+  - name: prowlarr
+    namespace: jellyfin-media
+    chart: loeken/prowlarr
+    version: 1.29.2
+    values:
+      - ./values/prowlarr.values.yaml
+
+  - name: flaresolverr
+    namespace: jellyfin-media
+    chart: k8s-home-lab/flaresolverr
+    version: 6.0.3
+    values:
+      - ./values/flaresolverr.values.yaml
+
+  - name: jellyseerr
+    namespace: jellyfin-media
+    chart: loeken/jellyseerr
+    version: 2.3.0
+    values:
+      - ./values/jellyseerr.values.yaml

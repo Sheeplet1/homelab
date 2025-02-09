@@ -1,0 +1,39 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: configarr
+  namespace: jellyfin-media
+spec:
+  schedule: "0 * * * *" # Runs every hour
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: configarr
+              image: ghcr.io/raydak-labs/configarr:latest
+              imagePullPolicy: Always
+              tty: true # for color support
+              volumeMounts:
+                - mountPath: /app/repos # Cache repositories
+                  name: data
+                  subPath: configarr-repos
+                - name: config # Mount specific config
+                  mountPath: /app/config/config.yml
+                  subPath: config.yml
+                - name: secrets
+                  mountPath: /app/config/secrets.yml # Mount secrets
+                  subPath: secrets.yml
+          volumes:
+            - name: data
+              persistentVolumeClaim:
+                claimName: recyclarr-pvc
+            - name: config
+              configMap:
+                name: configarr
+            - name: secrets
+              secret:
+                secretName: configarr
+          restartPolicy: Never

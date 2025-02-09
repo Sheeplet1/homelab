@@ -1,0 +1,49 @@
+# Create a storage class from microk8s default host storage class
+# that allows data retention and volume expansion.
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: local-storage
+provisioner: microk8s.io/hostpath
+volumeBindingMode: WaitForFirstConsumer
+---
+# Create a persistent volume to mount a local media folder into the container
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: media-pvc
+  namespace: jellyfin-media
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: local-storage
+  volumeName: media-pv
+  resources:
+    requests:
+      storage: 1.5Ti
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: media-pv
+  namespace: jellyfin-media
+spec:
+  accessModes:
+    - ReadOnlyMany
+  storageClassName: local-storage
+  capacity:
+    storage: 1.5Ti
+  claimRef:
+    kind: PersistentVolumeClaim
+    name: media-pvc
+    namespace: jellyfin-media
+  local:
+    path: /home/anthonyd/data
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: In
+              values:
+                - homelab-0

@@ -1,0 +1,155 @@
+enableRbac: true
+
+ingress:
+  main:
+    enabled: true
+    hosts:
+      - host: homepage.sheeplet.com
+        paths:
+          - path: /
+            pathType: Prefix
+
+env:
+  - name: HOMEPAGE_VAR_JELLYFIN_APIKEY
+    valueFrom:
+      secretKeyRef:
+        name: homepage-secrets
+        key: HOMEPAGE_VAR_JELLYFIN_APIKEY
+  - name: HOMEPAGE_VAR_JELLYSEERR_APIKEY
+    valueFrom:
+      secretKeyRef:
+        name: homepage-secrets
+        key: HOMEPAGE_VAR_JELLYSEERR_APIKEY
+  - name: HOMEPAGE_VAR_RADARR_APIKEY
+    valueFrom:
+      secretKeyRef:
+        name: homepage-secrets
+        key: HOMEPAGE_VAR_RADARR_APIKEY
+  - name: HOMEPAGE_VAR_SONARR_APIKEY
+    valueFrom:
+      secretKeyRef:
+        name: homepage-secrets
+        key: HOMEPAGE_VAR_SONARR_APIKEY
+  - name: HOMEPAGE_VAR_PROWLARR_APIKEY
+    valueFrom:
+      secretKeyRef:
+        name: homepage-secrets
+        key: HOMEPAGE_VAR_PROWLARR_APIKEY
+  - name: HOMEPAGE_VAR_QBITTORRENT_USER
+    valueFrom:
+      secretKeyRef:
+        name: homepage-secrets
+        key: HOMEPAGE_VAR_QBITTORRENT_USER
+  - name: HOMEPAGE_VAR_QBITTORRENT_PW
+    valueFrom:
+      secretKeyRef:
+        name: homepage-secrets
+        key: HOMEPAGE_VAR_QBITTORRENT_PW
+
+config:
+  # To use an existing ConfigMap uncomment this line and specify the name
+  # useExistingConfigMap: existing-homepage-configmap
+  bookmarks:
+    - Developer:
+        - Github:
+            - abbr: GH
+              href: https://github.com/
+  services:
+    - Homelab:
+        - Asus Router:
+            href: http://192.168.50.1
+            icon: asus-router.png
+        - PiHole:
+            href: pihole.home/admin
+            icon: pi-hole.png
+        - Grafana:
+            href: grafana.sheeplet.com
+            icon: grafana.png
+        - Mainsail:
+            href: http://192.168.50.119
+            icon: mainsail.svg
+
+    - Media Server:
+        - Jellyfin:
+            href: http://jellyfin.sheeplet.com
+            icon: jellyfin.svg
+            # widget:
+            #   type: jellyfin
+            #   url:
+            #   # key: { { HOMEPAGE_VAR_JELLYFIN_APIKEY } }
+            #   key:
+            #     valueFrom:
+            #       secretKeyRef:
+            #         name: homepage-secrets
+            #         key: HOMEPAGE_VAR_JELLYFIN_APIKEY
+            #   enableNowPlaying: false
+            #   enableUser: false
+            #   showEpisodeNumber: false
+            #   expandOneStreamToTwoRows: false
+        - Jellyseerr:
+            href: http://jellyseerr.sheeplet.com
+            icon: jellyseerr.svg
+            # widget:
+            #   type: jellyseerr
+            #   url:
+            #   # key: { { HOMEPAGE_VAR_JELLYSEERR_APIKEY } }
+        - Sonarr:
+            href: http://sonarr.sheeplet.com
+            icon: sonarr.svg
+            # widget:
+            #   type: sonarr
+            #   url:
+            #   # key: { { HOMEPAGE_VAR_SONARR_APIKEY } }
+        - Radarr:
+            href: http://radarr.sheeplet.com
+            icon: radarr.svg
+            # widget:
+            #   type: radarr
+            #   url:
+            #   # key: { { HOMEPAGE_VAR_RADARR_APIKEY } }
+        - Prowlarr:
+            href: http://prowlarr.sheeplet.com
+            icon: prowlarr.svg
+            # widget:
+            #   type: prowlarr
+            #   url:
+            #   # key: { { HOMEPAGE_VAR_PROWLARR_APIKEY } }
+        - QBittorrent:
+            href: http://qbittorrent.sheeplet.com
+            icon: qbittorrent.svg
+            # widget:
+            #   type: qbittorrent
+            #   url: qbittorrent.jellyfin-media.svc.cluster.local
+            #   # username: { { HOMEPAGE_VAR_QBITTORRENT_USER } }
+            #   # password: { { HOMEPAGE_VAR_QBITTORRENT_PW } }
+
+    - Online Media:
+        - YouTube:
+            href: https://youtube.com
+            icon: youtube.png
+        - Reddit:
+            href: https://reddit.com
+            icon: reddit.png
+  widgets:
+    - resources:
+        backend: kubernetes
+        expanded: true
+        cpu: true
+        memory: true
+    - search:
+        provider: duckduckgo
+        target: _blank
+    - kubernetes:
+        cluster:
+          show: true
+          cpu: true
+          memory: true
+          showLabel: true
+          label: "cluster"
+        nodes:
+          show: true
+          cpu: true
+          memory: true
+          showLabel: true
+  kubernetes:
+    mode: cluster

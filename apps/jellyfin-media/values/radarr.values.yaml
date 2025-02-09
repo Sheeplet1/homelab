@@ -1,0 +1,33 @@
+env:
+  - name: PUID
+    value: 1000
+  - name: PGID
+    value: 1000
+
+service:
+  main:
+    ports:
+      http:
+        port: 7878
+
+persistence:
+  config:
+    enabled: true
+    size: 1Gi
+    retain: true
+  media:
+    enabled: true
+    storageClass: longhorn
+    accessMode: ReadWriteMany
+    mountPath: /data
+    existingClaim: media-pvc
+
+ingress:
+  main:
+    enabled: true
+    className: nginx-internal
+    hosts:
+      - host: radarr.sheeplet.com
+        paths:
+          - path: /
+            pathType: Prefix

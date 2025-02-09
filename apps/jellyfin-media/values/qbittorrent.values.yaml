@@ -1,0 +1,111 @@
+env:
+  - name: PUID
+    value: 1000
+  - name: PGID
+    value: 1000
+
+ingress:
+  main:
+    enabled: true
+    hosts:
+      - host: qbittorrent.sheeplet.com
+        paths:
+          - path: /
+            pathType: Prefix
+
+initContainers:
+  # Required to create the file for gluetun to write the forwarded port to.
+  # Otherwise, we will get an error that the file doesn't exist.
+  init-forwarded-port-file:
+    image: busybox:latest
+    command:
+      - sh
+      - -c
+      - mkdir -p /shared/gluetun && touch /shared/gluetun/forwarded_port && chmod 666 /shared/gluetun/forwarded_port
+    volumeMounts:
+      - name: shared
+        mountPath: /shared
+
+persistence:
+  config:
+    enabled: true
+    retain: true
+    storageClass: longhorn
+    accessMode: ReadWriteOnce
+    size: 1Gi
+
+  downloads:
+    enabled: true
+    mountPath: /data
+    storageClass: longhorn
+    accessMode: ReadWriteMany
+    size: 200Gi
+    existingClaim: media-pvc
+
+  # Required to share the forwarded port for automatic detection for qBittorrent.
+  shared:
+    enabled: true
+    type: emptyDir
+    mountPath: /shared
+
+addons:
+  vpn:
+    enabled: true
+    type: gluetun
+    gluetun:
+      image:
+        repository: docker.io/qmcgaw/gluetun
+        tag: v3.40.0
+        pullPolicy: IfNotPresent
+    securityContext:
+      capabilities:
+        add:
+          - NET_ADMIN
+          - SYS_MODULE
+    env:
+      - name: VPN_SERVICE_PROVIDER
+        value: protonvpn
+      - name: VPN_TYPE
+        value: wireguard
+      - name: WIREGUARD_PRIVATE_KEY
+        valueFrom:
+          secretKeyRef:
+            name: media-secrets
+            key: wireguard-private-key
+      - name: VPN_PORT_FORWARDING
+        value: on
+      - name: VPN_PORT_FORWARDING_STATUS_FILE
+        value: "/shared/gluetun/forwarded_port"
+
+sidecars:
+  # port-forward:
+  #   dependsOn: gluetun
+  #   image: docker.io/snoringdragon/gluetun-qbittorrent-port-manager:1.0
+  #   env:
+  #     - name: QBITTORRENT_SERVER
+  #       value: qbittorrent
+  #     - name: QBITTORRENT_PORT
+  #       value: 8080
+  #     - name: PORT_FORWARDED
+  #       value: "/shared/gluetun/forwarded_port"
+  #   volumeMounts:
+  #     - name: shared
+  #       mountPath: /shared
+  port-forward:
+    dependsOn: gluetun
+    image: docker.io/mjmeli/qbittorrent-port-forward-gluetun-server:latest
+    env:
+      - name: QBT_USERNAME
+        valueFrom:
+          secretKeyRef:
+            name: media-secrets
+            key: qbittorrent-username
+      - name: QBT_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: media-secrets
+            key: qbittorrent-password
+      - name: QBT_ADDR
+        value: http://localhost:8080
+      - name: GTN_ADDR
+        value: http://localhost:8000
