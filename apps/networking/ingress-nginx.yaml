@@ -1,0 +1,34 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ingress-nginx
+  namespace: argocd
+spec:
+  project: default
+  sources:
+    - repoURL: https://kubernetes.github.io/ingress-nginx
+      chart: ingress-nginx
+      targetRevision: 4.12.0
+      helm:
+        releaseName: ingress-nginx-internal
+        valueFiles:
+          - $values/apps/networking/values/nginx-internal.values.yaml
+    - repoURL: https://github.com/Sheeplet1/homelab
+      targetRevision: argocd
+      ref: values
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: nginx-system
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - ServerSideApply=true
+      - Prune=true
+    retry:
+      limit: 5
+      backoff:
+        duration: 20s
+        factor: 2
+        maxDuration: 15m

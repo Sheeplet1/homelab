@@ -1,0 +1,34 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: radarr
+  namespace: argocd
+spec:
+  project: default
+  sources:
+    - repoURL: https://loeken.github.io/helm-charts
+      chart: radarr
+      targetRevision: 5.17.2
+      helm:
+        releaseName: radarr
+        valueFiles:
+          - $values/apps/media/values/radarr.values.yaml
+    - repoURL: https://github.com/Sheeplet1/homelab
+      targetRevision: argocd
+      ref: values
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: jellyfin-media
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - ServerSideApply=true
+      - Prune=true
+    retry:
+      limit: 5
+      backoff:
+        duration: 20s
+        factor: 2
+        maxDuration: 15m

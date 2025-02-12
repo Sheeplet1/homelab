@@ -1,0 +1,34 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: pihole
+  namespace: argocd
+spec:
+  project: default
+  sources:
+    - repoURL: https://mojo2600.github.io/pihole-kubernetes/
+      chart: pihole
+      targetRevision: 2.27.0
+      helm:
+        releaseName: pihole
+        valueFiles:
+          - $values/apps/networking/values/pihole.values.yaml
+    - repoURL: https://github.com/Sheeplet1/homelab
+      targetRevision: argocd
+      ref: values
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: pihole-system
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - ServerSideApply=true
+      - Prune=true
+    retry:
+      limit: 5
+      backoff:
+        duration: 20s
+        factor: 2
+        maxDuration: 15m

@@ -1,0 +1,34 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: jellyfin
+  namespace: argocd
+spec:
+  project: default
+  sources:
+    - repoURL: https://jellyfin.github.io/jellyfin-helm
+      chart: jellyfin
+      targetRevision: 2.1.0
+      helm:
+        releaseName: jellyfin
+        valueFiles:
+          - $values/apps/media/values/jellyfin.values.yaml
+    - repoURL: https://github.com/Sheeplet1/homelab
+      targetRevision: argocd
+      ref: values
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: jellyfin-media
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - ServerSideApply=true
+      - Prune=true
+    retry:
+      limit: 5
+      backoff:
+        duration: 20s
+        factor: 2
+        maxDuration: 15m

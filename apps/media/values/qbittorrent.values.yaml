@@ -1,3 +1,16 @@
+service:
+  main:
+    ports:
+      http:
+        port: 8080
+  bittorrent:
+    enabled: true
+    ports:
+      bittorrent:
+        enabled: true
+        port: 6881
+        protocol: TCP
+
 env:
   - name: PUID
     value: 1000
@@ -74,6 +87,8 @@ addons:
             key: wireguard-private-key
       - name: VPN_PORT_FORWARDING
         value: on
+      - name: PORT_FORWARD_ONLY
+        value: on
       - name: VPN_PORT_FORWARDING_STATUS_FILE
         value: "/shared/gluetun/forwarded_port"
 
@@ -92,7 +107,6 @@ sidecars:
   #     - name: shared
   #       mountPath: /shared
   port-forward:
-    dependsOn: gluetun
     image: docker.io/mjmeli/qbittorrent-port-forward-gluetun-server:latest
     env:
       - name: QBT_USERNAME
