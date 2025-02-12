@@ -14,7 +14,7 @@ spec:
         valueFiles:
           - $values/apps/media/values/radarr.values.yaml
     - repoURL: https://github.com/Sheeplet1/homelab
-      targetRevision: HEAD
+      targetRevision: main
       ref: values
   destination:
     server: "https://kubernetes.default.svc"
