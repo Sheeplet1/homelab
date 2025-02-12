@@ -50,5 +50,7 @@ data:
         include:
           # WEB-2160p
           - template: radarr-quality-definition-movie
+          - template: radarr-quality-profile-remux-web-1080p
+          - template: radarr-custom-formats-remux-web-1080p
           - template: radarr-quality-profile-remux-web-2160p
           - template: radarr-custom-formats-remux-web-2160p
