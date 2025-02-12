@@ -13,7 +13,7 @@ spec:
         releaseName: prowlarr
         valueFiles:
           - $values/apps/media/values/prowlarr.values.yaml
-    - repoURL: https://github.com/Sheeplet1/homelab
+    - repoURL: https://github.com/Sheeplet1/homelab.git
       targetRevision: main
       ref: values
   destination:

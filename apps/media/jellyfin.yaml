@@ -13,7 +13,7 @@ spec:
         releaseName: jellyfin
         valueFiles:
           - $values/apps/media/values/jellyfin.values.yaml
-    - repoURL: https://github.com/Sheeplet1/homelab
+    - repoURL: https://github.com/Sheeplet1/homelab.git
       targetRevision: main
       ref: values
   destination:

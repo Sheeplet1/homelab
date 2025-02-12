@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     path: apps/media/configarr
-    repoURL: https://github.com/Sheeplet1/homelab
+    repoURL: https://github.com/Sheeplet1/homelab.git
     targetRevision: main
   destination:
     namespace: jellyfin-media
