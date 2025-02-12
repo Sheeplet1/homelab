@@ -14,7 +14,7 @@ spec:
         valueFiles:
           - $values/apps/media/values/jellyseerr.values.yaml
     - repoURL: https://github.com/Sheeplet1/homelab
-      targetRevision: argocd
+      targetRevision: HEAD
       ref: values
   destination:
     server: "https://kubernetes.default.svc"

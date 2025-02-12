@@ -8,7 +8,7 @@ spec:
   source:
     path: apps/media/configarr
     repoURL: https://github.com/Sheeplet1/homelab
-    targetRevision: argocd
+    targetRevision: HEAD
   destination:
     namespace: jellyfin-media
     server: "https://kubernetes.default.svc"
