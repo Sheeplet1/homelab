@@ -13,8 +13,8 @@ spec:
         releaseName: pihole
         valueFiles:
           - $values/apps/networking/values/pihole.values.yaml
-    - repoURL: https://github.com/Sheeplet1/homelab
-      targetRevision: argocd
+    - repoURL: https://github.com/Sheeplet1/homelab.git
+      targetRevision: main
       ref: values
   destination:
     server: "https://kubernetes.default.svc"

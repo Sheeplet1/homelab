@@ -13,8 +13,8 @@ spec:
         releaseName: homepage
         valueFiles:
           - $values/apps/services/values/homepage.values.yaml
-    - repoURL: https://github.com/Sheeplet1/homelab
-      targetRevision: argocd
+    - repoURL: https://github.com/Sheeplet1/homelab.git
+      targetRevision: main
       ref: values
   destination:
     server: "https://kubernetes.default.svc"
