@@ -48,9 +48,16 @@ data:
           type: movie
 
         include:
-          # WEB-2160p
           - template: radarr-quality-definition-movie
+
+          # WEB-1080p - doesn't really find many movies.
           - template: radarr-quality-profile-remux-web-1080p
           - template: radarr-custom-formats-remux-web-1080p
+
+          # WEB-2160p - Prestige
           - template: radarr-quality-profile-remux-web-2160p
           - template: radarr-custom-formats-remux-web-2160p
+
+          # Bluray + Web for mass media movies
+          - template: radarr-quality-profile-hd-bluray-web
+          - template: radarr-custom-formats-hd-bluray-web
