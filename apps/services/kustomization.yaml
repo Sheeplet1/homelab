@@ -5,6 +5,7 @@ namespace: argocd
 
 resources:
   - homepage.yaml
+  - actualbudget.yaml
 
 commonAnnotations:
   argocd.argoproj.io/sync-wave: "1"

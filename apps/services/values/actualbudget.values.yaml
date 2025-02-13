@@ -4,7 +4,7 @@ files:
 
 ingress:
   enabled: true
-  className: longhorn
+  className: nginx-internal
   hosts:
     - host: budget.sheeplet.com
       paths:
