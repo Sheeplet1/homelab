@@ -4,7 +4,7 @@ metadata:
   name: homepage
   namespace: argocd
 spec:
-  project: services
+  project: default
   sources:
     - repoURL: https://jameswynn.github.io/helm-charts
       chart: homepage
