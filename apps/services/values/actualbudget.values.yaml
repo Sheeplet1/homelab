@@ -1,0 +1,21 @@
+files:
+  server: /data/server-files
+  user: /data/user-files
+
+ingress:
+  enabled: true
+  className: longhorn
+  hosts:
+    - host: budget.sheeplet.com
+      paths:
+        - path: /
+          pathType: Prefix
+
+volumes:
+  - name: data
+    persistentVolumeClaim:
+      claimName: actualbudget-pvc
+
+volumeMounts:
+  - name: data
+    mountPath: "/data"
