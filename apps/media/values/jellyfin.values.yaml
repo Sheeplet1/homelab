@@ -14,11 +14,10 @@ persistence:
     mountPath: /data
 
 ingress:
-  main:
-    enabled: true
-    className: nginx-internal
-    hosts:
-      - host: jellyfin.sheeplet.com
-        paths:
-          - path: /
-            pathType: Prefix
+  enabled: true
+  className: nginx-internal
+  hosts:
+    - host: jellyfin.sheeplet.com
+      paths:
+        - path: /
+          pathType: Prefix
