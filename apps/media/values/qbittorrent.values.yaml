@@ -82,6 +82,8 @@ addons:
         value: on
       - name: PORT_FORWARD_ONLY
         value: on
+      - name: FIREWALL_DEBUG
+        value: on
 
 sidecars:
   port-forward:
