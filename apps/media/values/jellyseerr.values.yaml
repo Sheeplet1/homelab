@@ -6,7 +6,6 @@ persistence:
   config:
     enabled: true
     size: 1Gi
-    storageClass: longhorn
     accessModes: ReadWriteOnce
     retain: true
 
