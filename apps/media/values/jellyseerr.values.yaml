@@ -6,6 +6,7 @@ persistence:
   config:
     enabled: true
     size: 1Gi
+    accessMode: ReadWriteOnce
     retain: true
 
 ingress:
