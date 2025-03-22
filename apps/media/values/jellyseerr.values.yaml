@@ -6,13 +6,14 @@ persistence:
   config:
     enabled: true
     size: 1Gi
-    accessMode: ReadWriteOnce
+    storageClass: longhorn
+    accessModes: ReadWriteOnce
     retain: true
 
 ingress:
   main:
     enabled: true
-    className: nginx-internal
+    ingressClassName: nginx-internal
     hosts:
       - host: jellyseerr.sheeplet.com
         paths:
