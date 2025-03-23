@@ -1,0 +1,18 @@
+ingress:
+  enabled: true
+  ingressClassName: nginx-internal
+  hosts:
+    - host: grafana.sheeplet.com
+      paths:
+        - path: /
+          pathType: Prefix
+
+persistence:
+  type: pvc
+  enabled: true
+  size: 1Gi
+
+admin:
+  existingSecret: monitoring-secrets
+  userKey: grafana-user
+  passwordKey: grafana-password
