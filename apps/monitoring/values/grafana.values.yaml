@@ -1,11 +1,9 @@
 ingress:
   enabled: true
   ingressClassName: "nginx-internal"
+  pathType: Prefix
   hosts:
-    - host: grafana.sheeplet.com
-      paths:
-        - path: /
-          pathType: Prefix
+    - grafana.sheeplet.com
 
 persistence:
   type: pvc
