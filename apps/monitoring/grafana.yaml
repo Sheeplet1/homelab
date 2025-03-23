@@ -14,7 +14,7 @@ spec:
         valueFiles:
           - $values/apps/monitoring/values/grafana.values.yaml
     - repoURL: https://github.com/Sheeplet1/homelab.git
-      targetRevision: main
+      targetRevision: grafana
       ref: values
   destination:
     server: "https://kubernetes.default.svc"
