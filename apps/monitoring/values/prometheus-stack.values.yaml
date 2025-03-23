@@ -1,0 +1,21 @@
+alertmanager:
+  enabled: true
+  ingress:
+    enabled: true
+    ingressClassName: nginx-internal
+    pathType: Prefix
+    hosts:
+      - alertmanager.sheeplet.com
+
+grafana:
+  enabled: true
+  ingress:
+    enabled: true
+    ingressClassName: nginx-internal
+    hosts:
+      - grafana.sheeplet.com
+    path: /
+  persistence:
+    enabled: true
+    type: pvc
+    size: 1Gi
