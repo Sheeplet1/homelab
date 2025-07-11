@@ -31,3 +31,13 @@ sudo nix run github:nix-community/nixos-anywhere \
 
 5. Set the static IP address for the new node in your router configuration.
 6. Confirm that the cluster is running via `kubectl get nodes`.
+
+## Rebuilding the configuration on the nodes
+
+1. SSH into the node.
+2. Clone the homelab repository
+3. Run the below command in the directory of the flake to update the configuration.
+
+```shell
+sudo nixos-rebuild --flake .#<homelab-profile> switch
+```
