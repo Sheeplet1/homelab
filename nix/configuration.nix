@@ -24,6 +24,7 @@
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.kernelModules = [ "i915" ];
 
   networking.hostName = meta.hostname; # Define your hostname.
   # Pick only one of the below networking options.
@@ -50,6 +51,17 @@
     "L+ /usr/local/bin - - - - /run/current-system/sw/bin/"
   ];
   virtualisation.docker.logDriver = "json-file";
+
+  hardware.opengl = {
+    enable = true;
+    extraPackages = with pkgs; [
+      intel-media-driver
+      intel-vaapi-driver
+      vaapiIntel
+      vaapiVdpau
+      libvdpau-va-gl
+    ];
+  };
 
   # Enable the X11 windowing system.
   # services.xserver.enable = true;
