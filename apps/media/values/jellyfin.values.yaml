@@ -21,3 +21,13 @@ ingress:
       paths:
         - path: /
           pathType: Prefix
+
+volumes:
+  - name: dev-dri
+
+volumeMounts:
+  - name: dev-dri
+    mountPath: /dev/dri
+
+securityContext:
+  privileged: true
