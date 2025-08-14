@@ -1,11 +1,12 @@
 ingress:
-  enabled: true
-  className: nginx-internal
-  hosts:
-    - host: reader.sheeplet.com
-      paths:
-        - path: /
-          pathType: prefix
+  main:
+    enabled: true
+    className: nginx-internal
+    hosts:
+      - host: reader.sheeplet.com
+        paths:
+          - path: /
+            pathType: prefix
 
 postgresql:
   enabled: true
