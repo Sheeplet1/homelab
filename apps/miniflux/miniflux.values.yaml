@@ -13,6 +13,8 @@ postgresql:
   auth:
     database: miniflux
     postgresPassword: miniflux
+    username: miniflux
+    password: miniflux
   persistence:
     enabled: true
     storageClass: longhorn
