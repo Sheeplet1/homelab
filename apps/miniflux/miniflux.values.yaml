@@ -6,7 +6,7 @@ ingress:
       - host: reader.sheeplet.com
         paths:
           - path: /
-            pathType: prefix
+            pathType: Prefix
 
 postgresql:
   enabled: true
