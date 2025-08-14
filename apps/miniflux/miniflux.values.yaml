@@ -1,0 +1,18 @@
+ingress:
+  enabled: true
+  className: nginx-internal
+  hosts:
+    - host: reader.sheeplet.com
+      paths:
+        - path: /
+          pathType: prefix
+
+postgresql:
+  enabled: true
+  auth:
+    database: miniflux
+    postgresPassword: miniflux
+  persistence:
+    enabled: true
+    storageClass: longhorn
+    size: 8Gi
