@@ -41,3 +41,10 @@ sudo nix run github:nix-community/nixos-anywhere \
 ```shell
 sudo nixos-rebuild --flake .#<homelab-profile> switch
 ```
+
+## Updating the configuration of a node
+
+1. `scp -r nix <username>@<ip-address>:/home/`
+2. In `configuration.nix`, change the k3s declaration from `tokenFile` to `token`. My `token` is
+   stored in 1Password (for future me).
+3. `cd nix` & `sudo nixos-rebuild switch --flake .`

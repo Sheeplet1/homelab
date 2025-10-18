@@ -20,7 +20,7 @@ spec:
   volumeName: media-pv
   resources:
     requests:
-      storage: 1.5Ti
+      storage: 4Ti
 ---
 apiVersion: v1
 kind: PersistentVolume
@@ -32,13 +32,13 @@ spec:
     - ReadOnlyMany
   storageClassName: local-storage
   capacity:
-    storage: 1.5Ti
+    storage: 4Ti
   claimRef:
     kind: PersistentVolumeClaim
     name: media-pvc
     namespace: jellyfin-media
   local:
-    path: /home/anthonyd/data
+    path: /storage
   nodeAffinity:
     required:
       nodeSelectorTerms:

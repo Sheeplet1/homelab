@@ -100,6 +100,14 @@
     name = "iqn.2016-04.com.open-iscsi:${meta.hostname}";
   };
 
+  fileSystems."/storage" = {
+    # UUID retrieved by running `sudo blkid /dev/sda | grep -o 'UUID="[^"]*"'` where /dev/sda is
+    # is the device we're setting up, retrieved from lsblk.
+    device = "/dev/disk/by-uuid/e68ec477-ca95-4ab4-b607-409cd9c738b9";
+    fsType = "ext4";
+    options = [ "nofail" ];
+  };
+
   # Enable CUPS to print documents.
   # services.printing.enable = true;
 
