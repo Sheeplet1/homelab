@@ -49,7 +49,7 @@ addons:
     gluetun:
       image:
         repository: docker.io/qmcgaw/gluetun
-        tag: v3.40.3
+        tag: v3.39.0
         pullPolicy: IfNotPresent
     securityContext:
       capabilities:
@@ -82,22 +82,21 @@ addons:
         value: on
       - name: PORT_FORWARD_ONLY
         value: on
-
-sidecars:
-  port-forward:
-    image: docker.io/mjmeli/qbittorrent-port-forward-gluetun-server:latest
-    env:
-      - name: QBT_USERNAME
-        valueFrom:
-          secretKeyRef:
-            name: media-secrets
-            key: qbittorrent-username
-      - name: QBT_PASSWORD
-        valueFrom:
-          secretKeyRef:
-            name: media-secrets
-            key: qbittorrent-password
-      - name: QBT_ADDR
-        value: http://localhost:8080
-      - name: GTN_ADDR
-        value: http://localhost:8000
+# sidecars:
+#   port-forward:
+#     image: docker.io/mjmeli/qbittorrent-port-forward-gluetun-server:latest
+#     env:
+#       - name: QBT_USERNAME
+#         valueFrom:
+#           secretKeyRef:
+#             name: media-secrets
+#             key: qbittorrent-username
+#       - name: QBT_PASSWORD
+#         valueFrom:
+#           secretKeyRef:
+#             name: media-secrets
+#             key: qbittorrent-password
+#       - name: QBT_ADDR
+#         value: http://localhost:8080
+#       - name: GTN_ADDR
+#         value: http://localhost:8000
