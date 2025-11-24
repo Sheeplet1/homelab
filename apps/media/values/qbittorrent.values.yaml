@@ -42,15 +42,10 @@ persistence:
     size: 200Gi
     existingClaim: media-pvc
 
-  gluetun-data:
+  shared:
+    enabled: true
     type: emptyDir
-    advancedMounts:
-      main:
-        gluetun:
-          - path: /tmp/gluetun
-        port-forward:
-          - path: /tmp/gluetun
-            readOnly: true
+    mountPath: /shared
 
 addons:
   vpn:
@@ -81,7 +76,7 @@ addons:
       - name: PORT_FORWARD_ONLY
         value: on
       - name: VPN_PORT_FORWARDING_STATUS_FILE
-        value: /tmp/gluetun/forwarded_port
+        value: /shared/gluetun/forwarded_port
 
 sidecars:
   port-forward:
@@ -92,7 +87,7 @@ sidecars:
       - name: QBITTORRENT_PORT
         value: "8080"
       - name: PORT_FORWARDED
-        value: /tmp/gluetun/forwarded_port
+        value: /shared/gluetun/forwarded_port
       - name: QBITTORRENT_USER
         valueFrom:
           secretKeyRef:
