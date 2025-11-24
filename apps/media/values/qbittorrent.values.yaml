@@ -80,12 +80,14 @@ addons:
 sidecars:
   port-forward:
     image: docker.io/snoringdragon/gluetun-qbittorrent-port-manager
+    volumes:
+      - /gluetun/forwarded_port
     env:
       - name: QBITTORRENT_SERVER
         value: localhost
       - name: QBITTORRENT_PORT
         value: "8080"
-      - name: PORT_FILE_PATH
+      - name: PORT_FORWARDED
         value: /gluetun/forwarded_port
       - name: QBITTORRENT_USER
         valueFrom:
