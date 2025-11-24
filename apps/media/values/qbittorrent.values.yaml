@@ -42,6 +42,11 @@ persistence:
     size: 200Gi
     existingClaim: media-pvc
 
+  gluetun-data:
+    type: emptyDir
+    globalMounts:
+      - path: /gluetun
+
 addons:
   vpn:
     enabled: true
@@ -70,21 +75,25 @@ addons:
         value: on
       - name: PORT_FORWARD_ONLY
         value: on
+      - name: VPN_PORT_FORWARDING_STATUS_FILE
+        value: /gluetun/forwarded_port
 sidecars:
   port-forward:
-    image: docker.io/mjmeli/qbittorrent-port-forward-gluetun-server:latest
+    image: ghcr.io/snoringdragon/gluetun-qbittorrent-port-manager:latest
     env:
-      - name: QBT_USERNAME
+      - name: QBITTORRENT_SERVER
+        value: localhost
+      - name: QBITTORRENT_PORT
+        value: "8080"
+      - name: PORT_FILE_PATH
+        value: /gluetun/forwarded_port
+      - name: QBITTORRENT_USER
         valueFrom:
           secretKeyRef:
             name: media-secrets
             key: qbittorrent-username
-      - name: QBT_PASSWORD
+      - name: QBITTORRENT_PASS
         valueFrom:
           secretKeyRef:
             name: media-secrets
             key: qbittorrent-password
-      - name: QBT_ADDR
-        value: http://localhost:8080
-      - name: GTN_ADDR
-        value: http://localhost:8000
