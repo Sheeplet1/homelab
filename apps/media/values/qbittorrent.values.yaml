@@ -57,8 +57,8 @@ addons:
           - NET_ADMIN
           - SYS_MODULE
     volumeMounts:
-      - name: media-pvc
-        mountPath: /storage
+      - name: downloads
+        mountPath: /data
         readOnly: true
     env:
       - name: VPN_SERVICE_PROVIDER
@@ -75,21 +75,22 @@ addons:
       - name: PORT_FORWARD_ONLY
         value: on
       - name: VPN_PORT_FORWARDING_STATUS_FILE
-        value: /storage/gluetun/forwarded_port
+        value: /data/gluetun/forwarded_port
+
 sidecars:
   port-forward:
-    image: docker.io/snoringdragon/gluetun-qbittorrent-port-manager
+    image: ghcr.io/snoringdragon/gluetun-qbittorrent-port-manager:latest
     volumeMounts:
-      - name: media-pvc
-        mountPath: /storage
+      - name: downloads
+        mountPath: /data
         readOnly: true
     env:
       - name: QBITTORRENT_SERVER
         value: localhost
       - name: QBITTORRENT_PORT
         value: "8080"
-      - name: PORT_FORWARDED
-        value: /storage/gluetun/forwarded_port
+      - name: PORT_FILE_PATH
+        value: /data/gluetun/forwarded_port
       - name: QBITTORRENT_USER
         valueFrom:
           secretKeyRef:
