@@ -79,7 +79,7 @@ addons:
         value: /gluetun/forwarded_port
 sidecars:
   port-forward:
-    image: ghcr.io/snoringdragon/gluetun-qbittorrent-port-manager:latest
+    image: docker.io/snoringdragon/gluetun-qbittorrent-port-manager
     env:
       - name: QBITTORRENT_SERVER
         value: localhost
