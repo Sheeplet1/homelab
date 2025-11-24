@@ -37,8 +37,12 @@ spec:
     kind: PersistentVolumeClaim
     name: media-pvc
     namespace: jellyfin-media
+  # This is the local path on the physical storage drive.
   local:
     path: /storage
+    path: /home/anthonyd/data
+  # Bind this persistent volume to `homelab-0`. Change values to bind this PV to
+  # a different node.
   nodeAffinity:
     required:
       nodeSelectorTerms:
