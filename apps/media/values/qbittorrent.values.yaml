@@ -46,6 +46,7 @@ persistence:
     enabled: true
     type: emptyDir
     mountPath: /shared
+    accessMode: ReadWriteOnce
 
 addons:
   vpn:
