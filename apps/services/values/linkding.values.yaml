@@ -1,0 +1,12 @@
+common:
+  ingress:
+    enabled: true
+    hostName: bookmarks.sheeplet.com
+    ingressClassName: nginx-internal
+
+  persistence:
+    enabled: true
+    volumes:
+      - name: "data"
+        storageClassName: longhorn
+        size: 2Gi
