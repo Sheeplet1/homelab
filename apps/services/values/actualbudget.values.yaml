@@ -10,6 +10,10 @@ ingress:
       paths:
         - path: /
           pathType: Prefix
+  tls:
+    - secretName: actualbudget-tls
+      hosts:
+        - budget.sheeplet.com
 
 volumes:
   - name: data
