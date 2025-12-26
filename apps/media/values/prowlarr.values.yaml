@@ -3,6 +3,7 @@ persistence:
     enabled: true
     size: 1Gi
     retain: true
+    accessModes: ReadWriteMany
 
 service:
   main:
