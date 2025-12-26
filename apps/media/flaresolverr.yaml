@@ -6,9 +6,9 @@ metadata:
 spec:
   project: default
   sources:
-    - repoURL: https://k8s-home-lab.github.io/helm-charts/
+    - repoURL: https://lib42.github.io/charts
       chart: flaresolverr
-      targetRevision: 6.0.3
+      targetRevision: 2.0.0
       helm:
         releaseName: flaresolverr
         valueFiles:
