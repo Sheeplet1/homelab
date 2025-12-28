@@ -1,0 +1,84 @@
+# WireGuard VPN Server Configuration
+replicaCount: 1
+
+image:
+  repository: ghcr.io/bryopsida/wireguard
+  tag: main
+  pullPolicy: Always
+
+wireguard:
+  # VPN Network Configuration
+  serverAddress: "10.50.0.1/24"
+  serverCidr: "10.50.0.0/24"
+
+  # NAT Configuration
+  natAddSourceNet: true
+  forwardIPv6: false
+
+  # DNS and routing
+  interfaceOpts:
+    DNS: "192.168.50.50" # PiHole DNS
+    PostUp: |
+      iptables -t nat -A POSTROUTING -s 10.50.0.0/24 -o eth0 -j MASQUERADE;
+      iptables -A FORWARD -i wg0 -s 10.50.0.0/24 -d 192.168.50.0/24 -j ACCEPT;
+      iptables -A FORWARD -i eth0 -s 192.168.50.0/24 -d 10.50.0.0/24 -j ACCEPT;
+    PostDown: |
+      iptables -t nat -D POSTROUTING -s 10.50.0.0/24 -o eth0 -j MASQUERADE;
+      iptables -D FORWARD -i wg0 -s 10.50.0.0/24 -d 192.168.50.0/24 -j ACCEPT;
+      iptables -D FORWARD -i eth0 -s 192.168.50.0/24 -d 10.50.0.0/24 -j ACCEPT;
+
+  # Client configurations
+  clients:
+    - PublicKey: "EVXVFi1uiGYqe7bkt1ujAhCDsMgMvkic0miy7ow9Azw="
+      AllowedIPs: "10.50.0.2/32"
+      FriendlyName: "catchall"
+      PersistentKeepalive: 25
+    # Add more clients as needed:
+    # - PublicKey: "<CLIENT_2_PUBLIC_KEY>"
+    #   AllowedIPs: "10.50.0.3/32"
+    #   FriendlyName: "phone"
+    #   PersistentKeepalive: 25
+
+# Service configuration - MetalLB LoadBalancer
+service:
+  enabled: true
+  type: LoadBalancer
+  port: 51820
+  loadBalancerIP: "192.168.50.51"
+  externalTrafficPolicy: Local
+  annotations:
+    metallb.universe.tf/allow-shared-ip: "wireguard-svc"
+
+# Security context
+securityContext:
+  runAsNonRoot: true
+  runAsUser: 1000
+  capabilities:
+    add:
+      - NET_ADMIN
+
+# Resource limits
+resources:
+  requests:
+    memory: "256Mi"
+    cpu: "100m"
+  limits:
+    memory: "512Mi"
+    cpu: "200m"
+
+# Prometheus metrics
+metrics:
+  enabled: true
+  serviceMonitor:
+    enabled: true
+
+# Disable for single replica
+podDisruptionBudget:
+  enabled: false
+autoscaling:
+  enabled: false
+
+# Health check
+health:
+  enabled: true
+  port: 8080

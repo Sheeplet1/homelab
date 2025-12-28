@@ -1,0 +1,35 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: wireguard
+  namespace: argocd
+spec:
+  project: default
+  sources:
+    - repoURL: https://bryopsida.github.io/wireguard-chart
+      chart: wireguard
+      targetRevision: 0.31.0
+      helm:
+        releaseName: wireguard
+        valueFiles:
+          - $values/apps/networking/values/wireguard.values.yaml
+    - repoURL: https://github.com/Sheeplet1/homelab.git
+      targetRevision: main
+      ref: values
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: wireguard-system
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - ServerSideApply=true
+      - Prune=true
+      - CreateNamespace=true
+    retry:
+      limit: 5
+      backoff:
+        duration: 20s
+        factor: 2
+        maxDuration: 15m

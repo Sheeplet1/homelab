@@ -8,6 +8,7 @@ resources:
   - metallb.yaml
   - ingress-nginx.yaml
   - external-dns.yaml
+  - wireguard.yaml
 
 commonAnnotations:
   argocd.argoproj.io/sync-wave: "1"
