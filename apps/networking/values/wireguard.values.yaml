@@ -11,6 +11,9 @@ wireguard:
   serverAddress: "10.50.0.1/24"
   serverCidr: "10.50.0.0/24"
 
+  # MTU Configuration - set to 1340 to match client
+  mtu: 1340
+
   # NAT Configuration
   natAddSourceNet: true
   forwardIPv6: false
@@ -18,8 +21,8 @@ wireguard:
   # DNS and routing
   interfaceOpts:
     DNS: "192.168.50.50" # PiHole DNS
-    PostUp: "iptables -t nat -A POSTROUTING -s 10.50.0.0/24 -o eth0 -j MASQUERADE; iptables -A FORWARD -i wg0 -s 10.50.0.0/24 -d 192.168.50.0/24 -j ACCEPT; iptables -A FORWARD -i eth0 -s 192.168.50.0/24 -d 10.50.0.0/24 -j ACCEPT"
-    PostDown: "iptables -t nat -D POSTROUTING -s 10.50.0.0/24 -o eth0 -j MASQUERADE; iptables -D FORWARD -i wg0 -s 10.50.0.0/24 -d 192.168.50.0/24 -j ACCEPT; iptables -D FORWARD -i eth0 -s 192.168.50.0/24 -d 10.50.0.0/24 -j ACCEPT"
+    PostUp: "iptables -t nat -A POSTROUTING -s 10.50.0.0/24 -o eth0 -j MASQUERADE; iptables -A FORWARD -i wg0 -s 10.50.0.0/24 -d 192.168.50.0/24 -j ACCEPT; iptables -A FORWARD -i eth0 -s 192.168.50.0/24 -d 10.50.0.0/24 -j ACCEPT; iptables -t mangle -A FORWARD -p tcp --tcp-flags SYN,RST SYN -j TCPMSS --clamp-mss-to-pmtu; iptables -t mangle -A POSTROUTING -p tcp --tcp-flags SYN,RST SYN -o wg0 -j TCPMSS --clamp-mss-to-pmtu"
+    PostDown: "iptables -t nat -D POSTROUTING -s 10.50.0.0/24 -o eth0 -j MASQUERADE; iptables -D FORWARD -i wg0 -s 10.50.0.0/24 -d 192.168.50.0/24 -j ACCEPT; iptables -D FORWARD -i eth0 -s 192.168.50.0/24 -d 10.50.0.0/24 -j ACCEPT; iptables -t mangle -D FORWARD -p tcp --tcp-flags SYN,RST SYN -j TCPMSS --clamp-mss-to-pmtu; iptables -t mangle -D POSTROUTING -p tcp --tcp-flags SYN,RST SYN -o wg0 -j TCPMSS --clamp-mss-to-pmtu"
 
   # Client configurations
   clients:

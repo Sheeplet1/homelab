@@ -16,6 +16,15 @@ persistence:
 ingress:
   enabled: true
   className: nginx-internal
+  annotations:
+    # Disable proxy buffering for streaming
+    nginx.ingress.kubernetes.io/proxy-buffering: "off"
+    # Extend timeouts for long-running streams
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "600"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
+    # Increase body size for uploads
+    nginx.ingress.kubernetes.io/proxy-body-size: "0"
   hosts:
     - host: jellyfin.sheeplet.com
       paths:
