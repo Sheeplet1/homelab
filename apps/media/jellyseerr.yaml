@@ -6,8 +6,9 @@ metadata:
 spec:
   project: default
   sources:
-    - repoURL: oci://ghcr.io/fallenbagel/jellyseerr/jellyseerr-chart
-      targetRevision: 3.0.0
+    - repoURL: https://loeken.github.io/helm-charts
+      chart: jellyseerr
+      targetRevision: 2.7.3
       helm:
         releaseName: jellyseerr
         valueFiles:

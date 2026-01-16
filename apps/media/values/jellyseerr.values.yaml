@@ -1,13 +1,14 @@
 config:
   persistence:
     size: 1Gi
+    storageClass: longhorn
+    mountPath: /app/config
     accessModes:
       - ReadWriteOnce
-    name: jellyseerr-config
 
 ingress:
   enabled: true
-  ingressClassName: nginx-internal
+  className: nginx-internal
   hosts:
     - host: jellyseerr.sheeplet.com
       paths:
