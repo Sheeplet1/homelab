@@ -1,5 +1,5 @@
-config:
-  persistence:
+persistence:
+  config:
     size: 1Gi
     storageClass: longhorn
     mountPath: /app/config
