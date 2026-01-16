@@ -2,19 +2,17 @@ persistence:
   config:
     size: 1Gi
     storageClass: longhorn
-    mountPath: /app/config
-    accessModes:
-      - ReadWriteOnce
+    accessMode: ReadWriteOnce
 
 ingress:
-  enabled: true
-  className: nginx-internal
-  hosts:
-    - host: jellyseerr.sheeplet.com
-      paths:
-        - path: /
-          pathType: Prefix
-
-probes:
-  startupProbe:
-    initialDelaySeconds: 30
+  main:
+    enabled: true
+    className: nginx-internal
+    hosts:
+      - host: jellyseerr.sheeplet.com
+        paths:
+          - path: /
+            pathType: Prefix
+# probes:
+#   startupProbe:
+#     initialDelaySeconds: 30
