@@ -1,26 +1,19 @@
-image:
-  registry: docker.io
-  repository: fallenbagel/jellyseerr
-
-persistence:
-  config:
-    enabled: true
+config:
+  persistence:
     size: 1Gi
-    storageClass: longhorn
-    accessModes: ReadWriteOnce
-    mountPath: /app/config
-    retain: true
+    accessModes:
+      - ReadWriteOnce
+    name: jellyseerr-config
 
 ingress:
-  main:
-    enabled: true
-    ingressClassName: nginx-internal
-    hosts:
-      - host: jellyseerr.sheeplet.com
-        paths:
-          - path: /
-            pathType: Prefix
+  enabled: true
+  ingressClassName: nginx-internal
+  hosts:
+    - host: jellyseerr.sheeplet.com
+      paths:
+        - path: /
+          pathType: Prefix
+
 probes:
-  startup:
-    spec:
-      initialDelaySeconds: 30
+  startupProbe:
+    initialDelaySeconds: 30
