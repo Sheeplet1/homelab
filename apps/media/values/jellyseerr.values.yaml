@@ -1,11 +1,13 @@
 persistence:
   config:
+    type: persistentVolumeClaim
     size: 1Gi
     storageClass: longhorn
     accessMode: ReadWriteOnce
     globalMounts:
       - path: /app/config
         readOnly: false
+    retain: true
 
 ingress:
   main:
