@@ -82,33 +82,33 @@ addons:
       #     secretKeyRef:
       #       name: media-secrets
       #       key: wireguard-private-key
-      # - name: VPN_PORT_FORWARDING
-      #   value: on
-      # - name: PORT_FORWARD_ONLY
-      #   value: on
-      # - name: VPN_PORT_FORWARDING_STATUS_FILE
-      #   value: /shared/forwarded_port
-# sidecars:
-#   port-forward:
-#     image: docker.io/snoringdragon/gluetun-qbittorrent-port-manager:latest
-#     volumeMounts:
-#       - name: shared
-#         mountPath: /shared
-#         readOnly: true
-#     env:
-#       - name: QBITTORRENT_SERVER
-#         value: localhost
-#       - name: QBITTORRENT_PORT
-#         value: "8080"
-#       - name: PORT_FORWARDED
-#         value: /shared/forwarded_port
-#       - name: QBITTORRENT_USER
-#         valueFrom:
-#           secretKeyRef:
-#             name: media-secrets
-#             key: qbittorrent-username
-#       - name: QBITTORRENT_PASS
-#         valueFrom:
-#           secretKeyRef:
-#             name: media-secrets
-#             key: qbittorrent-password
+      - name: VPN_PORT_FORWARDING
+        value: on
+      - name: PORT_FORWARD_ONLY
+        value: on
+      - name: VPN_PORT_FORWARDING_STATUS_FILE
+        value: /shared/forwarded_port
+sidecars:
+  port-forward:
+    image: docker.io/snoringdragon/gluetun-qbittorrent-port-manager:latest
+    volumeMounts:
+      - name: shared
+        mountPath: /shared
+        readOnly: true
+    env:
+      - name: QBITTORRENT_SERVER
+        value: localhost
+      - name: QBITTORRENT_PORT
+        value: "8080"
+      - name: PORT_FORWARDED
+        value: /shared/forwarded_port
+      - name: QBITTORRENT_USER
+        valueFrom:
+          secretKeyRef:
+            name: media-secrets
+            key: qbittorrent-username
+      - name: QBITTORRENT_PASS
+        valueFrom:
+          secretKeyRef:
+            name: media-secrets
+            key: qbittorrent-password
