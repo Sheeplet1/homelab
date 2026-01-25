@@ -64,7 +64,17 @@ addons:
           - SYS_MODULE
     env:
       - name: VPN_SERVICE_PROVIDER
-        value: protonvpn
+        value: private internet access
+      - name: OPENVPN_USER
+        valueFrom:
+          secretKeyRef:
+            name: media-secrets
+            key: openvpn-user
+      - name: OPENVPN_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: media-secrets
+            key: openvpn-password
       - name: VPN_TYPE
         value: wireguard
       - name: WIREGUARD_PRIVATE_KEY
