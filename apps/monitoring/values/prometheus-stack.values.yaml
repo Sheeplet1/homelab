@@ -6,6 +6,34 @@ alertmanager:
     pathType: Prefix
     hosts:
       - alertmanager.sheeplet.com
+  alertmanagerSpec:
+    secrets:
+      - alertmanager-discord
+  config:
+    global:
+      resolve_timeout: 5m
+    route:
+      group_by: ["alertname", "namespace"]
+      group_wait: 30s
+      group_interval: 5m
+      repeat_interval: 4h
+      receiver: "discord"
+      routes:
+        - receiver: "discord"
+          matchers:
+            - severity=~"warning|critical"
+    receivers:
+      - name: "discord"
+        discord_configs:
+          - webhook_url_file: /etc/alertmanager/secrets/alertmanager-discord/webhook-url
+            title: "{{ .Status | toUpper }}: {{ .CommonLabels.alertname }}"
+            message: |
+              {{ range .Alerts }}
+              **Alert:** {{ .Labels.alertname }}
+              **Severity:** {{ .Labels.severity }}
+              **Namespace:** {{ .Labels.namespace }}
+              **Description:** {{ .Annotations.description }}
+              {{ end }}
 
 grafana:
   enabled: true
@@ -19,3 +47,53 @@ grafana:
     enabled: true
     type: pvc
     size: 1Gi
+  # Dashboard sidecar for ConfigMap-based custom dashboards
+  sidecar:
+    dashboards:
+      enabled: true
+      label: grafana_dashboard
+      labelValue: "1"
+      searchNamespace: ALL
+      folderAnnotation: grafana_folder
+  # Default dashboards
+  defaultDashboardsEnabled: true
+  defaultDashboardsTimezone: utc
+  # Import community dashboards from grafana.com
+  dashboards:
+    default:
+      kubernetes-cluster:
+        gnetId: 7249
+        revision: 1
+        datasource: Prometheus
+      node-exporter-full:
+        gnetId: 1860
+        revision: 37
+        datasource: Prometheus
+      longhorn:
+        gnetId: 13032
+        revision: 6
+        datasource: Prometheus
+      k8s-pod-resources:
+        gnetId: 15760
+        revision: 28
+        datasource: Prometheus
+
+prometheus:
+  prometheusSpec:
+    # Allows Prometheus to discover monitors in all namespaces
+    serviceMonitorSelectorNilUsesHelmValues: false
+    podMonitorSelectorNilUsesHelmValues: false
+    serviceMonitorNamespaceSelector: {}
+    podMonitorNamespaceSelector: {}
+
+    # Resource limits
+    resources:
+      requests:
+        memory: 400Mi
+        cpu: 200m
+      limits:
+        memory: 2Gi
+
+    # Retenion period
+    retention: 15d
+    retentionSize: "10GB"
