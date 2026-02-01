@@ -13,3 +13,14 @@ ingress:
         paths:
           - path: /
             pathType: Prefix
+
+# Enable metrics collection for Prometheus
+serviceMonitor:
+  main:
+    enabled: true
+    endpoints:
+      - port: http
+        scheme: http
+        path: /metrics
+        interval: 1m
+        scrapeTimeout: 10s

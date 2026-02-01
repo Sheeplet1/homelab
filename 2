@@ -1,28 +1,37 @@
+env:
+  - name: PUID
+    value: 1000
+  - name: PGID
+    value: 1000
+
+service:
+  main:
+    ports:
+      http:
+        port: 7878
+
 persistence:
   config:
-    type: persistentVolumeClaim
+    enabled: true
     size: 1Gi
-    storageClass: longhorn
-    accessMode: ReadWriteOnce
-    globalMounts:
-      - path: /app/config
-        readOnly: false
     retain: true
+  media:
+    enabled: true
+    storageClass: longhorn
+    accessMode: ReadWriteMany
+    mountPath: /data
+    existingClaim: media-pvc
 
 ingress:
   main:
     enabled: true
     className: nginx-internal
     hosts:
-      - host: jellyseerr.sheeplet.com
+      - host: radarr.sheeplet.com
         paths:
           - path: /
             pathType: Prefix
-# probes:
-#   startupProbe:
-#     initialDelaySeconds: 30
 
-# Enable metrics collection for Prometheus
 serviceMonitor:
   main:
     enabled: true

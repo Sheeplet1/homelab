@@ -1,5 +1,6 @@
 global:
   domain: argocd.sheeplet.com
+  addPrometheusAnnotations: true
 
 configs:
   params:
