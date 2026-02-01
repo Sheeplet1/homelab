@@ -25,7 +25,10 @@ podAnnotations:
   prometheus.io/scrape: "true"
 
 monitoring:
+  podMonitor:
+    enabled: true
   sidecar:
+    enabled: true
     port: 9617
     image:
       repository: ekofr/pihole-exporter
