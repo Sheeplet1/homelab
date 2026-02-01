@@ -31,6 +31,7 @@ ingress:
         - path: /
           pathType: Prefix
 
+# Mounting /dev/dri to get Intel QuickSync working.
 volumes:
   - name: dev-dri
 
@@ -40,3 +41,9 @@ volumeMounts:
 
 securityContext:
   privileged: true
+
+# Enabling metrics for Prometheus collection
+metrics:
+  enabled: true
+  serviceMonitor:
+    enabled: true
