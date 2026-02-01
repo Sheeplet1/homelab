@@ -1,3 +1,18 @@
+controllers:
+  main:
+    initContainers:
+      fix-permissions:
+        image:
+          repository: busybox
+          tag: latest
+        command:
+          - sh
+          - -c
+          - chown -R 1000:1000 /config
+        securityContext:
+          runAsUser: 0
+          runAsGroup: 0
+
 env:
   - name: PUID
     value: 1000
@@ -8,6 +23,8 @@ defaultPodOptions:
   securityContext:
     runAsUser: 1000
     runAsGroup: 1000
+    fsGroup: 1000
+    fsGroupChangePolicy: OnRootMismatch
 
 service:
   main:
