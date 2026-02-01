@@ -1,8 +1,15 @@
-env:
-  - name: PUID
-    value: 1000
-  - name: PGID
-    value: 1000
+# env:
+#   - name: PUID
+#     value: 1000
+#   - name: PGID
+#     value: 1000
+
+defaultPodOptions:
+  securityContext:
+    runAsUser: 1000
+    runAsGroup: 1000
+    fsGroup: 1000
+    fsGroupChangePolicy: OnRootMismatch
 
 service:
   main:
@@ -33,13 +40,5 @@ ingress:
           - path: /
             pathType: Prefix
 
-# Enable metrics collection for Prometheus
-serviceMonitor:
-  main:
-    enabled: true
-    endpoints:
-      - port: http
-        scheme: http
-        path: /metrics
-        interval: 1m
-        scrapeTimeout: 10s
+metrics:
+  enabled: true
