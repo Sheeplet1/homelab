@@ -8,7 +8,7 @@ spec:
   sources:
     - repoURL: https://loeken.github.io/helm-charts
       chart: sonarr
-      targetRevision: 4.0.12
+      targetRevision: 4.0.16
       helm:
         releaseName: sonarr
         valueFiles:

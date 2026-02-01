@@ -8,7 +8,7 @@ spec:
   sources:
     - repoURL: https://loeken.github.io/helm-charts
       chart: radarr
-      targetRevision: 5.17.2
+      targetRevision: 5.27.0-nightly
       helm:
         releaseName: radarr
         valueFiles:
