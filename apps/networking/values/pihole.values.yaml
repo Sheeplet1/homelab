@@ -18,22 +18,3 @@ serviceDns:
     metallb.universe.tf/allow-shared-ip: pihole-svc
   type: LoadBalancer
 replicaCount: 1
-
-podAnnotations:
-  # Example below allows Prometheus to scape on metric port (requires pihole-exporter sidecar enabled)
-  prometheus.io/port: "9617"
-  prometheus.io/scrape: "true"
-
-monitoring:
-  podMonitor:
-    enabled: true
-  sidecar:
-    enabled: true
-    port: 9617
-    image:
-      repository: ekofr/pihole-exporter
-      tag: v1.0.0
-      pullPolicy: IfNotPresent
-    resources:
-      limits:
-        memory: 128Mi
