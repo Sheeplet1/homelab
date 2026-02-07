@@ -5,6 +5,8 @@ global:
 configs:
   params:
     server.insecure: true
+  cm:
+    helm.enableOci: "true"
 
 server:
   ingress:

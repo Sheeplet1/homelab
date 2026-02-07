@@ -6,9 +6,9 @@ metadata:
 spec:
   project: default
   sources:
-    - repoURL: oci://ghcr.io/arpanghosh8453/garmin-grafana
-      chart: garmin-grafana
-      targetRevision: v0.3.1-helm
+    - repoURL: https://github.com/arpanghosh8453/garmin-grafana.git
+      targetRevision: main
+      path: k8s
       helm:
         releaseName: garmin-stats
         valueFiles:
