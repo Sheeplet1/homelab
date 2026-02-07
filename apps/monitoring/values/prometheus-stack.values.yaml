@@ -47,6 +47,19 @@ grafana:
     enabled: true
     type: pvc
     size: 1Gi
+  additionalDataSources:
+    - name: GarminInflux
+      uid: DS_GARMIN_STATS
+      type: influxdb
+      access: proxy
+      url: http://garmin-stats-influxdb.garmin-stats.svc.cluster.local:8086
+      database: GarminStats
+      user: admin
+      secureJsonData:
+        password: password
+      jsonData:
+        httpMode: GET
+        version: 1
   # Dashboard sidecar for ConfigMap-based custom dashboards
   sidecar:
     dashboards:
@@ -77,6 +90,11 @@ grafana:
         gnetId: 15760
         revision: 28
         datasource: Prometheus
+    garmin:
+      garmin-dashboard:
+        gnetId: 23245
+        revision: 2
+        datasource: GarminInflux
 
 prometheus:
   prometheusSpec:
