@@ -51,3 +51,5 @@ garmin:
       value: "15min"
     - name: USER_TIMEZONE
       value: "Australia/Sydney"
+    - name: GARMINCONNECT_IS_CN
+      value: "True"
