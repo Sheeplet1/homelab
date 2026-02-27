@@ -7,7 +7,7 @@ persistence:
     globalMounts:
       - path: /app/config
         readOnly: false
-    retain: true
+    enabled: true
 
 ingress:
   main:
