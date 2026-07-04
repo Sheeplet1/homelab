@@ -5,6 +5,8 @@ files:
 ingress:
   enabled: true
   className: nginx-internal
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: "0"
   hosts:
     - host: budget.sheeplet.com
       paths:
@@ -15,11 +17,6 @@ ingress:
       hosts:
         - budget.sheeplet.com
 
-volumes:
-  - name: data
-    persistentVolumeClaim:
-      claimName: actualbudget-pvc
-
-volumeMounts:
-  - name: data
-    mountPath: "/data"
+persistence:
+  enabled: true
+  existingClaim: actualbudget-pvc
