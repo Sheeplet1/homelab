@@ -52,6 +52,15 @@
   ];
   virtualisation.docker.logDriver = "json-file";
 
+  # Raise inotify limits: the kernel default of 128 instances is exhausted by
+  # Jellyfin/.NET FileSystemWatcher plus other pods sharing the node, causing
+  # "configured user limit (128) on the number of inotify instances has been
+  # reached" crashes on Jellyfin startup.
+  boot.kernel.sysctl = {
+    "fs.inotify.max_user_instances" = 8192;
+    "fs.inotify.max_user_watches" = 1048576;
+  };
+
   hardware.graphics = {
     enable = true;
     extraPackages = with pkgs; [
