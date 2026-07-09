@@ -1,0 +1,14 @@
+# Single-node cluster: replicas can only ever be scheduled on homelab-0, and Longhorn
+# refuses to place two replicas of one volume on the same node. With the chart default of
+# 3 replicas every volume sits permanently in "degraded" state, which also blocks volume
+# expansion ("cannot expand volume before replica scheduling success"). Run 1 replica per
+# volume until the cluster has more storage nodes.
+
+# Applies to volumes created without an explicit replica count (e.g. via the Longhorn UI).
+defaultSettings:
+  defaultReplicaCount: 1
+
+# Sets numberOfReplicas on the default "longhorn" StorageClass, covering all PVC-provisioned
+# volumes. Only affects newly created volumes; existing ones were patched directly.
+persistence:
+  defaultClassReplicaCount: 1
