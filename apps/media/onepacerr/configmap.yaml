@@ -23,6 +23,8 @@ data:
   LIBRARY_USE_HARDLINKS: "true"
   JELLYFIN_URL: http://jellyfin:8096
   JELLYFIN_LIBRARY_NAME: Anime
+  MOUNT_LIBRARY_MEDIA_SERVER: /media
+  MOUNT_LIBRARY_ONEPACERR: /data
 
   TORRENT_CLIENT: qbittorrent
   TORRENT_URL: http://qbittorrent:8080
