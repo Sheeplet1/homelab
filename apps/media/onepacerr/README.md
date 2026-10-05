@@ -65,5 +65,7 @@ Check the internal health and status APIs without publishing an ingress:
 ```bash
 kubectl port-forward --namespace jellyfin-media service/onepacerr 3000:3000
 curl http://127.0.0.1:3000/api/v1/healthz
-curl http://127.0.0.1:3000/api/v1/status
+curl http://127.0.0.1:3000/api/v1/status/pipeline
+curl http://127.0.0.1:3000/api/v1/status/pipeline/report
+curl http://127.0.0.1:3000/api/v1/status/metadata
 ```
