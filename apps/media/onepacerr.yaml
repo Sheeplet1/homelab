@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: onepacerr
+  namespace: argocd
+spec:
+  project: default
+  source:
+    path: apps/media/onepacerr
+    repoURL: https://github.com/Sheeplet1/homelab.git
+    targetRevision: main
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: jellyfin-media
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - ServerSideApply=true
+      - Prune=true
+    retry:
+      limit: 5
+      backoff:
+        duration: 20s
+        factor: 2
+        maxDuration: 15m

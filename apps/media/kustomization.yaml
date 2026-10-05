@@ -12,6 +12,7 @@ resources:
   - flaresolverr.yaml
   - prowlarr.yaml
   - configarr.yaml
+  - onepacerr.yaml
 
 commonAnnotations:
   argocd.argoproj.io/sync-wave: "1"
