@@ -38,7 +38,6 @@ wireguard:
   serverCidr: "10.50.0.0/24"
 
   interfaceOpts:
-    DNS: "192.168.50.50" # The PiHole DNS server address
     PostUp: "iptables -t nat -A POSTROUTING -s 10.50.0.0/24 -o eth0 -j MASQUERADE; iptables -A FORWARD -i wg0 -s 10.50.0.0/24 -d 192.168.50.0/24 -j ACCEPT; iptables -A FORWARD -i eth0 -s 192.168.50.0/24 -d 10.50.0.0/24 -j ACCEPT"
     PostDown: "iptables -t nat -D POSTROUTING -s 10.50.0.0/24 -o eth0 -j MASQUERADE; iptables -D FORWARD -i wg0 -s 10.50.0.0/24 -d 192.168.50.0/24 -j ACCEPT; iptables -D FORWARD -i eth0 -s 192.168.50.0/24 -d 10.50.0.0/24 -j ACCEPT"
 
@@ -203,6 +202,16 @@ This allows PiHole to respond to DNS queries from VPN clients.
    - `http://pihole.home/admin`
 
 ## Issues Encountered & Solutions
+
+### Server Fails to Start After a Restart
+
+If startup logs show `resolvconf: signature mismatch: /etc/resolv.conf` followed by deletion of `wg0`,
+remove `DNS` from the server's `wireguard.interfaceOpts`. Kubernetes manages the pod's resolver
+configuration. Keep `DNS = 192.168.50.50` in client configurations.
+
+Use `deploymentStrategy.type: Recreate` with `deploymentStrategy.rollingUpdate: null` on the
+single-node cluster. The chart's required pod anti-affinity prevents a replacement pod from
+scheduling while the old pod remains, so the default rolling update cannot complete.
 
 ### Client Cannot Connect/Access Services
 
