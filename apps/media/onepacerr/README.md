@@ -58,6 +58,23 @@ kubectl delete pod \
   --selector app.kubernetes.io/name=onepacerr
 ```
 
+## Recovering deleted files
+
+Set `PIPELINE_FORCE_REDOWNLOAD` to `"true"` in `configmap.yaml` to queue every monitored episode
+even when Jellyfin still lists deleted files. Apply the ConfigMap and restart the deployment:
+
+```bash
+kubectl apply --namespace jellyfin-media --filename apps/media/onepacerr/configmap.yaml
+kubectl rollout restart --namespace jellyfin-media deployment/onepacerr
+```
+
+Commit and push the configuration so ArgoCD does not revert it. Once the recovery pass has queued
+all downloads, set `PIPELINE_FORCE_REDOWNLOAD` to `"false"`, commit and push, apply, and restart
+again. Queued torrents continue downloading and OnePacerr imports them when complete.
+
+Completed torrents that still exist in qBittorrent are reused. If their files were deleted, force
+a recheck of those torrents and resume them so qBittorrent fetches their missing pieces.
+
 ## Verification
 
 Check the internal health and status APIs without publishing an ingress:
