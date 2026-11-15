@@ -21,7 +21,7 @@ ingress:
   main:
     enabled: true
     hosts:
-      - host: qbittorrent.sheeplet.com
+      - host: qbittorrent.sheeplet.duckdns.org
         paths:
           - path: /
             pathType: Prefix

@@ -5,7 +5,7 @@ alertmanager:
     ingressClassName: nginx-internal
     pathType: Prefix
     hosts:
-      - alertmanager.sheeplet.com
+      - alertmanager.sheeplet.duckdns.org
   alertmanagerSpec:
     secrets:
       - alertmanager-discord
@@ -41,7 +41,7 @@ grafana:
     enabled: true
     ingressClassName: nginx-internal
     hosts:
-      - grafana.sheeplet.com
+      - grafana.sheeplet.duckdns.org
     path: /
   persistence:
     enabled: true

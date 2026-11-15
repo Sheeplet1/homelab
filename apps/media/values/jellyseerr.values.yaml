@@ -14,7 +14,7 @@ ingress:
     enabled: true
     className: nginx-internal
     hosts:
-      - host: jellyseerr.sheeplet.com
+      - host: jellyseerr.sheeplet.duckdns.org
         paths:
           - path: /
             pathType: Prefix

@@ -3,7 +3,7 @@ ingress:
     enabled: true
     className: nginx-internal
     hosts:
-      - host: reader.sheeplet.com
+      - host: reader.sheeplet.duckdns.org
         paths:
           - path: /
             pathType: Prefix

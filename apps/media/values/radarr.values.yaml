@@ -50,7 +50,7 @@ ingress:
     enabled: true
     className: nginx-internal
     hosts:
-      - host: radarr.sheeplet.com
+      - host: radarr.sheeplet.duckdns.org
         paths:
           - path: /
             pathType: Prefix

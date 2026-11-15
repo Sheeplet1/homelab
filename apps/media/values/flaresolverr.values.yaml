@@ -9,7 +9,7 @@ ingress:
     enabled: true
     className: nginx-internal
     hosts:
-      - host: flaresolverr.sheeplet.com
+      - host: flaresolverr.sheeplet.duckdns.org
         paths:
           - path: /
             pathType: Prefix

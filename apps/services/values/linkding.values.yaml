@@ -1,7 +1,7 @@
 common:
   ingress:
     enabled: true
-    hostName: bookmarks.sheeplet.com
+    hostName: bookmarks.sheeplet.duckdns.org
     ingressClassName: nginx-internal
 
   persistence:

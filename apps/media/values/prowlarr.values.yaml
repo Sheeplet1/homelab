@@ -16,7 +16,7 @@ ingress:
     enabled: true
     className: nginx-internal
     hosts:
-      - host: prowlarr.sheeplet.com
+      - host: prowlarr.sheeplet.duckdns.org
         paths:
           - path: /
             pathType: Prefix

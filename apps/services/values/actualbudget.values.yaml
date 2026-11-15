@@ -8,14 +8,15 @@ ingress:
   annotations:
     nginx.ingress.kubernetes.io/proxy-body-size: "0"
   hosts:
-    - host: budget.sheeplet.com
+    - host: budget.sheeplet.duckdns.org
       paths:
         - path: /
           pathType: Prefix
   tls:
-    - secretName: actualbudget-tls
+    # The chart requires secretName; an empty value selects NGINX's default certificate.
+    - secretName: ""
       hosts:
-        - budget.sheeplet.com
+        - budget.sheeplet.duckdns.org
 
 persistence:
   enabled: true

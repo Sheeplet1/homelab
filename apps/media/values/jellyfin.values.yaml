@@ -26,7 +26,7 @@ ingress:
     # Increase body size for uploads
     nginx.ingress.kubernetes.io/proxy-body-size: "0"
   hosts:
-    - host: jellyfin.sheeplet.com
+    - host: jellyfin.sheeplet.duckdns.org
       paths:
         - path: /
           pathType: Prefix

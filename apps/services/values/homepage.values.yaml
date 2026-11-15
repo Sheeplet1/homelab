@@ -60,10 +60,10 @@ config:
             href: http://192.168.50.1
             icon: asus-router.png
         - PiHole:
-            href: pihole.home/admin
+            href: https://pihole.sheeplet.duckdns.org/admin
             icon: pi-hole.png
         - Grafana:
-            href: grafana.sheeplet.com
+            href: https://grafana.sheeplet.duckdns.org
             icon: grafana.png
         - Mainsail:
             href: http://192.168.50.119
@@ -71,7 +71,7 @@ config:
 
     - Media Server:
         - Jellyfin:
-            href: http://jellyfin.sheeplet.com
+            href: https://jellyfin.sheeplet.duckdns.org
             icon: jellyfin.svg
             # widget:
             #   type: jellyfin
@@ -87,35 +87,35 @@ config:
             #   showEpisodeNumber: false
             #   expandOneStreamToTwoRows: false
         - Jellyseerr:
-            href: http://jellyseerr.sheeplet.com
+            href: https://jellyseerr.sheeplet.duckdns.org
             icon: jellyseerr.svg
             # widget:
             #   type: jellyseerr
             #   url:
             #   # key: { { HOMEPAGE_VAR_JELLYSEERR_APIKEY } }
         - Sonarr:
-            href: http://sonarr.sheeplet.com
+            href: https://sonarr.sheeplet.duckdns.org
             icon: sonarr.svg
             # widget:
             #   type: sonarr
             #   url:
             #   # key: { { HOMEPAGE_VAR_SONARR_APIKEY } }
         - Radarr:
-            href: http://radarr.sheeplet.com
+            href: https://radarr.sheeplet.duckdns.org
             icon: radarr.svg
             # widget:
             #   type: radarr
             #   url:
             #   # key: { { HOMEPAGE_VAR_RADARR_APIKEY } }
         - Prowlarr:
-            href: http://prowlarr.sheeplet.com
+            href: https://prowlarr.sheeplet.duckdns.org
             icon: prowlarr.svg
             # widget:
             #   type: prowlarr
             #   url:
             #   # key: { { HOMEPAGE_VAR_PROWLARR_APIKEY } }
         - QBittorrent:
-            href: http://qbittorrent.sheeplet.com
+            href: https://qbittorrent.sheeplet.duckdns.org
             icon: qbittorrent.svg
             # widget:
             #   type: qbittorrent

@@ -1,5 +1,5 @@
 global:
-  domain: argocd.sheeplet.com
+  domain: argocd.sheeplet.duckdns.org
   addPrometheusAnnotations: true
 
 configs:
