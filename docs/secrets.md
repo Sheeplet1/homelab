@@ -2,6 +2,8 @@
 
 Secrets managed through Bitnami Sealed Secrets.
 
+For the DuckDNS token Secret and certificate deployment order, see [Local HTTPS](https.md).
+
 To update secrets file:
 
 ```bash

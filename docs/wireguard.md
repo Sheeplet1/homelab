@@ -164,7 +164,7 @@ qrencode -t png -o client-wg0-qr.png < client-wg0.conf
 
 ### 10. Configure PiHole
 
-1. Access PiHole: `http://pihole.home/admin`
+1. Access PiHole: `https://pihole.sheeplet.duckdns.org/admin`
 2. Navigate to: **Settings → DNS → Interface Settings**
 3. Select: **"Permit all origins"** (or add `10.50.0.0/24` to allowed subnets)
 4. Click **"Save"**
@@ -193,13 +193,13 @@ This allows PiHole to respond to DNS queries from VPN clients.
 5. Test DNS resolution:
 
    ```bash
-   nslookup jellyfin.sheeplet.com 192.168.50.50
+   nslookup jellyfin.sheeplet.duckdns.org 192.168.50.50
    ```
 
 6. Access services via browser:
-   - `http://jellyfin.sheeplet.com`
-   - `http://homepage.sheeplet.com`
-   - `http://pihole.home/admin`
+   - `https://jellyfin.sheeplet.duckdns.org`
+   - `https://homepage.sheeplet.duckdns.org`
+   - `https://pihole.sheeplet.duckdns.org/admin`
 
 ## Issues Encountered & Solutions
 
@@ -333,10 +333,10 @@ ping 192.168.50.50       # PiHole
 ping 192.168.50.2        # Ingress controller
 
 # DNS test
-nslookup jellyfin.sheeplet.com 192.168.50.50
+nslookup jellyfin.sheeplet.duckdns.org 192.168.50.50
 
-# Direct IP access
-curl http://192.168.50.2
+# Test the proxy while preserving the hostname required for TLS validation
+curl --resolve homepage.sheeplet.duckdns.org:443:192.168.50.2 https://homepage.sheeplet.duckdns.org
 ```
 
 ### Common Issues
