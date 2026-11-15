@@ -1,0 +1,8 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+# Keep explicit namespaces: the token belongs to cert-manager, TLS to nginx-system.
+resources:
+  - sealedsecrets.yaml
+  - issuers.yaml
+  - certificate.yaml

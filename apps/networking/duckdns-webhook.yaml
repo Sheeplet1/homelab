@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: duckdns-webhook
+  namespace: argocd
+spec:
+  project: default
+  sources:
+    - repoURL: https://csp33.github.io/cert-manager-duckdns-webhook
+      chart: cert-manager-duckdns-webhook
+      targetRevision: 1.1.3
+      helm:
+        releaseName: duckdns-webhook
+        valueFiles:
+          - $values/apps/networking/values/duckdns-webhook.values.yaml
+    - repoURL: https://github.com/Sheeplet1/homelab.git
+      targetRevision: main
+      ref: values
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: cert-manager
+  # Bootstrap manually so dependent webhooks wait for cert-manager readiness.
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true

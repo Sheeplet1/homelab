@@ -1,0 +1,15 @@
+groupName: acme.sheeplet.duckdns.org
+replicaCount: 1
+certManager:
+  namespace: cert-manager
+  serviceAccountName: cert-manager
+image:
+  tag: "1.0.1"
+token:
+  existingSecretName: cert-manager-secrets
+# Issuers are managed explicitly to restrict validation to our DuckDNS name.
+clusterIssuer:
+  production:
+    create: false
+  staging:
+    create: false

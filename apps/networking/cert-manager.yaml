@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cert-manager
+  namespace: argocd
+spec:
+  project: default
+  sources:
+    - repoURL: https://charts.jetstack.io
+      chart: cert-manager
+      # This release requires Kubernetes 1.33 or newer.
+      targetRevision: v1.21.3
+      helm:
+        releaseName: cert-manager
+        valueFiles:
+          - $values/apps/networking/values/cert-manager.values.yaml
+    - repoURL: https://github.com/Sheeplet1/homelab.git
+      targetRevision: main
+      ref: values
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: cert-manager
+  # Bootstrap manually so dependent webhooks wait for cert-manager readiness.
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true
