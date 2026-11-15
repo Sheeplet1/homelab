@@ -1,0 +1,57 @@
+apiVersion: v1
+entries:
+  jellyseerr:
+    - annotations:
+        artifacthub.io/changes: |-
+          - kind: changed
+            description: updated to 2.3.0
+        artifacthub.io/values-schema: values.schema.json
+      apiVersion: v2
+      appVersion: 3.0.1
+      created: "2026-11-15T14:29:53.638823156+11:00"
+      dependencies:
+        - name: common
+          repository: https://bjw-s-labs.github.io/helm-charts
+          version: 4.6.2
+      description: a helm chart to install jellyseer
+      digest: 26ac9b5804b2bc97b3139482d2363384268932422cb858f089d5fabf8b632a6a
+      home: https://github.com/loeken/helm-charts
+      icon: https://gravatar.com/avatar/61f5b56ca85bc7e22f270e125c7e61ca?s=400
+      maintainers:
+        - email: loeken@internetz.me
+          name: loeken
+      name: jellyseerr
+      sources:
+        - https://github.com/loeken/helm-charts/tree/main/charts/jellyseer
+      type: application
+      urls:
+        - https://raw.githubusercontent.com/Sheeplet1/homelab/main/apps/media/charts/jellyseerr-3.0.1.tgz
+      version: 3.0.1
+  sonarr:
+    - annotations:
+        artifacthub.io/changes: |-
+          - kind: changed
+            description: updated to 4.0.13
+        artifacthub.io/values-schema: values.schema.json
+      apiVersion: v2
+      appVersion: 4.0.16
+      created: "2026-11-15T14:29:53.643169458+11:00"
+      dependencies:
+        - name: common
+          repository: https://bjw-s-labs.github.io/helm-charts
+          version: 4.6.2
+      description: sonarr - an internet PVR for Usenet and Torrents.
+      digest: 6eaf91449fba3c4b30b9cea7e87441cc5b7ebecd89386066e22d461a3678948f
+      home: https://github.com/loeken/helm-charts
+      icon: https://gravatar.com/avatar/61f5b56ca85bc7e22f270e125c7e61ca?s=400
+      maintainers:
+        - email: loeken@internetz.me
+          name: loeken
+      name: sonarr
+      sources:
+        - https://github.com/loeken/helm-charts/tree/main/charts/sonarr
+      type: application
+      urls:
+        - https://raw.githubusercontent.com/Sheeplet1/homelab/main/apps/media/charts/sonarr-4.0.16.tgz
+      version: 4.0.16
+generated: "2026-11-15T14:29:53.633319621+11:00"

@@ -6,7 +6,8 @@ metadata:
 spec:
   project: default
   sources:
-    - repoURL: https://loeken.github.io/helm-charts
+    # Preserve the installed release after its upstream archive was removed.
+    - repoURL: https://raw.githubusercontent.com/Sheeplet1/homelab/main/apps/media/charts
       chart: sonarr
       targetRevision: 4.0.16
       helm:
