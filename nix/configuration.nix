@@ -83,7 +83,7 @@
   services.k3s = {
     enable = true;
     role = "server";
-    tokenFile = /var/lib/rancher/k3s/server/token;
+    tokenFile = "/var/lib/rancher/k3s/server/token";
     extraFlags = toString (
       [
         "--write-kubeconfig-mode \"0644\""
@@ -144,7 +144,7 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     neovim
-    k3s
+    config.services.k3s.package
     cifs-utils
     nfs-utils
     git
