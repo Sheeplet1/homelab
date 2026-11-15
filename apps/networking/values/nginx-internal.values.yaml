@@ -1,6 +1,8 @@
 controller:
   extraArgs:
     default-ssl-certificate: nginx-system/sheeplet-wildcard-tls
+  config:
+    force-ssl-redirect: "true"
   ingressClassResource:
     # -- Name of the ingressClass
     name: nginx-internal
