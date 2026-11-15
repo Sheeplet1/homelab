@@ -110,3 +110,40 @@ do not assume changing the chart pin downgrades them safely. Restore the paired
 datastore and cold volume backup if recovery crosses a Longhorn upgrade. Test
 restoration using copies, and retain backups until both the engine upgrade and
 the later HTTPS rollout have been accepted.
+
+## Rollout record: 15 November 2026
+
+The node completed all four engine stages and runs `v1.35.8+k3s1` with NixOS
+24.11 unchanged. NGINX chart 4.15.1 and Longhorn 1.11.3 were deployed through
+the existing ArgoCD applications. All eleven Longhorn volumes were retained;
+the nine active volumes use healthy 1.11.3 engines. The two previously unused
+volumes remain detached. The Gluetun volume now has one replica.
+
+Recovery artifacts are on the workstation at
+`/home/anthonyd/Backups/homelab/2026-11-15/`. `cold-storage.tar` contains all
+eleven replica directories, the server token, and the paired
+`pre-storage-upgrade-homelab-0-1794705154` etcd snapshot. Its SHA256 is
+`6f07b1dd86406f2b7176307582b4c44fe63077dff1d3f0166610b14de2b907df`.
+Additional `pre-k3s-132.tar`, `pre-k3s-133.tar`, `pre-k3s-134.tar`, and
+`pre-k3s-135.tar` archives contain the token and checkpoints immediately before
+each engine change. Their transfers were checksum verified. The archive contents
+and checksums were checked; a full disaster recovery rehearsal was not performed.
+
+On the node, `/var/lib/homelab-upgrade/2026-11-15/` retains the read-only
+`rootfs-pre-storage` snapshot and Nix GC roots named `original-system-root`,
+`k3s-132-system`, `k3s-133-system`, `k3s-134-system`, and `k3s-135-system`.
+The final system closure is
+`/nix/store/h5nrv64lqyzsh1f4dxk7v5va1vglcmn1-nixos-system-homelab-0-24.11.20250630.50ab793`.
+Do not delete these recovery artifacts during the HTTPS rollout.
+
+Maintenance replica counts, CronJob suspension flags, and ArgoCD sync policies
+were restored. Use `kubectl --server=https://192.168.50.183:6443
+--tls-server-name=homelab-0` if stopping Pi-hole makes the node's hostname
+unresolvable. The existing ingress remains at `192.168.50.2`; no HTTPS resources
+or hostname changes were deployed or pushed.
+
+The qBittorrent restart exposed a stale PIA server cache. Refreshing it with
+`/gluetun-entrypoint update -providers 'private internet access' -enduser`
+inside the Gluetun container and restarting that container restored the VPN and
+port forwarding. Credentials, region selection, and the original UDP protocol
+were preserved. A temporary TCP test was reverted.

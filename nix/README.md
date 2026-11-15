@@ -44,7 +44,12 @@ sudo nixos-rebuild --flake .#<homelab-profile> switch
 
 ## Updating the configuration of a node
 
-1. `scp -r nix <username>@<ip-address>:/home/`
-2. In `configuration.nix`, change the k3s declaration from `tokenFile` to `token`. My `token` is
-   stored in 1Password (for future me).
-3. `cd nix` & `sudo nixos-rebuild switch --flake .`
+1. Copy the committed `nix` directory into an isolated directory on the node.
+2. Keep `services.k3s.tokenFile` pointing at the existing runtime token file. Do not
+   replace it with a literal token; that would expose the token in the Nix store.
+3. Build and review the intended output before activating it with `nixos-rebuild`.
+
+The default `homelab-0` output pins Kubernetes 1.35.8. For engine upgrades, follow
+the intermediate outputs, backup gates, and recovery procedure in
+[Kubernetes upgrade and recovery](../docs/kubernetes-upgrade.md). A Git revert
+alone does not reverse Kubernetes datastore migrations.
