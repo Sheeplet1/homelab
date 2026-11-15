@@ -4,7 +4,7 @@ ingress:
   main:
     enabled: true
     hosts:
-      - host: homepage.sheeplet.com
+      - host: homepage.sheeplet.duckdns.org
         paths:
           - path: /
             pathType: Prefix

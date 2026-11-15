@@ -1,4 +1,6 @@
 controller:
+  extraArgs:
+    default-ssl-certificate: nginx-system/sheeplet-wildcard-tls
   ingressClassResource:
     # -- Name of the ingressClass
     name: nginx-internal
